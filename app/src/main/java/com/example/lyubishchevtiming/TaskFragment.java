@@ -26,11 +26,11 @@ public class TaskFragment extends Fragment {
         TextView text = (TextView) rootView.findViewById(R.id.text);
 
         tasks = new ArrayList<>();
-        tasks.add(new Task ( "Meditation", "red"));
+        tasks.add(new Task ( "Meditation", "yellow"));
         tasks.add(new Task ("Yoga", "red"));
-        tasks.add(new Task ("Reading", "red"));
+        tasks.add(new Task ("Reading", "green"));
         tasks.add(new Task ("Dancing", "red"));
-        tasks.add(new Task ("Cooking", "red"));
+        tasks.add(new Task ("Cooking", "blue"));
 
         GridView gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
         TaskAdapter taskAdapter = new TaskAdapter(getActivity(), tasks);

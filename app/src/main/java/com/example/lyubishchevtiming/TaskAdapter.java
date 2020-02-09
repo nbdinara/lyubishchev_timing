@@ -1,6 +1,7 @@
 package com.example.lyubishchevtiming;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 
 public class TaskAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
+    private Task task;
+    private ImageView taskImageView;
 
     // 1
     public TaskAdapter(Context context, ArrayList<Task> tasks) {
@@ -43,7 +48,7 @@ public class TaskAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // 1
-        final Task task = tasks.get(position);
+       task = tasks.get(position);
 
         // 2
         if (convertView == null) {
@@ -52,15 +57,41 @@ public class TaskAdapter extends BaseAdapter {
         }
 
         // 3
-        final ImageView taskImageView = (ImageView)convertView.findViewById(R.id.task_image);
+        taskImageView = (ImageView)convertView.findViewById(R.id.task_image);
         final TextView taskLetter = (TextView)convertView.findViewById(R.id.task_letter);
         final TextView taskName = (TextView)convertView.findViewById(R.id.task_name);
 
+        setImageViewColor();
+
+
         // 4
-        //taskImageView.setImageResource(task.getColor());
         taskLetter.setText(Character.toString(task.getName().charAt(0)));
         taskName.setText(task.getName());
 
         return convertView;
+    }
+
+    private void setImageViewColor(){
+        switch (task.getColor()) {
+            case "red":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.red), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "blue":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.blue), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "yellow":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "green":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.green), PorterDuff.Mode.SRC_ATOP);
+                break;
+            default:
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        }
     }
 }
