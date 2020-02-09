@@ -1,6 +1,9 @@
 package com.example.lyubishchevtiming;
 
-public class Task {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Task implements Parcelable  {
 
     private String name;
     private String color;
@@ -13,6 +16,35 @@ public class Task {
         this.name = name;
         this.color = color;
     }
+
+    protected Task(Parcel in) {
+        name = in.readString();
+        color  = in.readString();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(color);
+    }
+
 
     public String getName(){
         return name;
