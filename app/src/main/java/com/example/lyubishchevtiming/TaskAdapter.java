@@ -1,0 +1,66 @@
+package com.example.lyubishchevtiming;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+public class TaskAdapter extends BaseAdapter {
+
+    private final Context mContext;
+    private ArrayList<Task> tasks = new ArrayList<>();
+
+    // 1
+    public TaskAdapter(Context context, ArrayList<Task> tasks) {
+        this.mContext = context;
+        this.tasks = tasks;
+    }
+
+    // 2
+    @Override
+    public int getCount() {
+        return tasks.size();
+    }
+
+    // 3
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    // 4
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    // 5
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // 1
+        final Task task = tasks.get(position);
+
+        // 2
+        if (convertView == null) {
+            final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            convertView = layoutInflater.inflate(R.layout.grid_item, null);
+        }
+
+        // 3
+        final ImageView taskImageView = (ImageView)convertView.findViewById(R.id.task_image);
+        final TextView taskLetter = (TextView)convertView.findViewById(R.id.task_letter);
+        final TextView taskName = (TextView)convertView.findViewById(R.id.task_name);
+
+        // 4
+        //taskImageView.setImageResource(task.getColor());
+        taskLetter.setText(Character.toString(task.getName().charAt(0)));
+        taskName.setText(task.getName());
+
+        return convertView;
+    }
+}
