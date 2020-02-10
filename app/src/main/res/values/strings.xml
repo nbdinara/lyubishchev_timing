@@ -26,4 +26,5 @@
 
     <!--activity_time_tracking-->
     <string name="cancel">Cancel</string>
+    <string name="stop">Stop</string>
 </resources>
