@@ -2,4 +2,8 @@
     <string name="app_name">Lyubishchev Timing</string>
     <string name="tab_task">Tasks</string>
     <string name="tab_summary">Summary</string>
+    <string name="goal">Goal: </string>
+    <string name="done">Done: </string>
+    <string name="left">Left: </string>
+    <string name="start">Start</string>
 </resources>

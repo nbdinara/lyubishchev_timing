@@ -1,8 +1,8 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +19,12 @@
 
             <TextView
                 android:id="@+id/task_name"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorIcons"
+                android:textSize="@dimen/task_name_text_size"/>
 
         </LinearLayout>
         <LinearLayout
@@ -28,7 +32,109 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-            android:orientation="horizontal" />
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginLeft="@dimen/margin_start"
+            android:layout_marginEnd="@dimen/margin_start"
+            android:layout_marginRight="@dimen/margin_start"
+            android:layout_marginTop="@dimen/margin_start">
+
+            <TextView
+                android:id="@+id/goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/goal"
+                android:textSize="@dimen/goal_text_size"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_start">
+
+                <ImageView
+                    android:id="@+id/mon_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/mon_enabled"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/tue_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/tue_enabled"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/wed_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/wed_enabled"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/thu_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/thu_enabled"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/fri_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/fri_enabled"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/sat_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/sat_enabled"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/sun_icon"
+                    android:layout_width="@dimen/weekday_icon_size"
+                    android:layout_height="@dimen/weekday_icon_size"
+                    tools:src="@mipmap/sun_enabled"
+                    android:layout_weight="1"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_start"
+                android:text="@string/done"
+                android:textSize="@dimen/text_size"/>
+
+            <TextView
+                android:id="@+id/left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/left"
+                android:textSize="@dimen/text_size"/>
+
+            <Button
+                android:id="@+id/start_button"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="@dimen/margin_start"
+                android:layout_marginBottom="@dimen/margin_start"
+                android:layout_gravity="center_horizontal|bottom"
+                android:text="@string/start"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:textColor="@color/colorIcons"
+                android:background="@drawable/circle_shape" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -38,6 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:src="@drawable/ic_edit"
+        android:background="@color/colorAccent"
         app:layout_anchor="@id/viewA"
         app:layout_anchorGravity="bottom|right|end"/>
 

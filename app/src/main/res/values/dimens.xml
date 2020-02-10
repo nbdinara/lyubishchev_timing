@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="goal_text_size">24sp</dimen>
+    <dimen name="task_name_text_size">32sp</dimen>
+    <dimen name="weekday_icon_size">32dp</dimen>
+    <dimen name="margin_start">16dp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="start_button_text_size">32sp</dimen>
+</resources>
