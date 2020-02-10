@@ -1,16 +1,11 @@
 package com.example.lyubishchevtiming;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.awt.font.TextAttribute;
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -33,8 +28,6 @@ public class TaskActivity extends AppCompatActivity {
 
         mHeader = findViewById(R.id.viewA);
         setImageViewColor();
-
-
     }
 
 
@@ -43,8 +36,8 @@ public class TaskActivity extends AppCompatActivity {
             case "red":
                 mHeader.setBackgroundColor(getResources().getColor(R.color.red));
                 break;
-            case "blue":
-                mHeader.setBackgroundColor(getResources().getColor(R.color.blue));
+            case "glaucous":
+                mHeader.setBackgroundColor(getResources().getColor(R.color.glaucous));
                 break;
             case "yellow":
                 mHeader.setBackgroundColor(getResources().getColor(R.color.yellow));
@@ -52,8 +45,20 @@ public class TaskActivity extends AppCompatActivity {
             case "green":
                 mHeader.setBackgroundColor(getResources().getColor(R.color.green));
                 break;
+            case "orange":
+                mHeader.setBackgroundColor(getResources().getColor(R.color.orange));
+                break;
+            case "peach":
+                mHeader.setBackgroundColor(getResources().getColor(R.color.peach));
+                break;
+            case "lavender":
+                mHeader.setBackgroundColor(getResources().getColor(R.color.lavender));
+                break;
+            case "blue":
+                mHeader.setBackgroundColor(getResources().getColor(R.color.blue));
+                break;
             default:
-                mHeader.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                mHeader.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
         }
     }
 }
