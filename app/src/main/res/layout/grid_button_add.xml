@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="@dimen/task_image_size"
+        android:layout_height="@dimen/task_image_size"
+        android:layout_gravity="center"
+        android:background="@drawable/add_button_shape" />
+
+
+    <TextView
+        android:id="@+id/add_label"
+        android:text="@string/add"
+        android:layout_marginTop="@dimen/margin_start"
+        android:textSize="@dimen/list_title_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        tools:text="@string/add"/>
+</LinearLayout>

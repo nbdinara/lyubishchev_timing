@@ -3,6 +3,9 @@
     <string name="tab_task">Tasks</string>
     <string name="tab_summary">Summary</string>
 
+    <!--fragment_task.xml-->
+    <string name="add">Add</string>
+
     <!--activity_task.xml-->
     <string name="goal">Goal: </string>
     <string name="done">Done: </string>

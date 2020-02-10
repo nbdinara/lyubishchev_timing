@@ -3,21 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tab_task"/>
 
     <GridView
         android:id="@+id/grid_view_tasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_start"
         android:gravity="center"
         android:columnWidth="100dp"
         android:numColumns="auto_fit"
         android:verticalSpacing="24dp"
         android:horizontalSpacing="10dp"
-        android:stretchMode="spacingWidthUniform"
-        />
+        android:stretchMode="spacingWidthUniform"/>
+
+    <Button
+        android:id="@+id/profile_button"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/circle_shape"
+        android:text="+" />
+
+
+
+
 </LinearLayout>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--fragment_task.xml-->
+    <dimen name="letter_size">36sp</dimen>
+    <dimen name="task_image_size">72dp</dimen>
+
+
     <dimen name="goal_text_size">24sp</dimen>
     <dimen name="task_name_text_size">32sp</dimen>
     <dimen name="weekday_icon_size">32dp</dimen>
