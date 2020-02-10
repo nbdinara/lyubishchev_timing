@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
     private Task mTask;
     private NumberPicker hoursNumberPicker;
     private NumberPicker minutesNumberPicker;
+    private FloatingActionButton mSaveButton;
+
 
 
     @Override
@@ -33,12 +38,22 @@ public class AddEditTaskActivity extends AppCompatActivity {
         minutesNumberPicker.setMinValue(0);
         minutesNumberPicker.setMaxValue(59);
         minutesNumberPicker.setOnValueChangedListener(onMinutesChangeListener);
+
+        mSaveButton = findViewById(R.id.save_fab);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //TODO save changes to database
+                finish();
+
+            }
+        });
     }
 
 
     public void fillFields(){
         if (mTask != null){
-
+            //TODO fill views with data from intent
         }
     }
 
