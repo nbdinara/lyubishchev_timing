@@ -19,6 +19,7 @@ public class TaskActivity extends AppCompatActivity {
     private TextView mTaskNameTextView;
     private LinearLayout mHeader;
     private FloatingActionButton mAddEditTaskButton;
+    private Button mStartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,23 @@ public class TaskActivity extends AppCompatActivity {
         mTaskNameTextView.setText(mTask.getName());
 
         mHeader = findViewById(R.id.viewA);
-        mAddEditTaskButton = findViewById(R.id.fab_edit_add_task);
 
+        mAddEditTaskButton = findViewById(R.id.fab_edit_add_task);
         mAddEditTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Class destinationClass = AddEditTaskActivity.class;
+                Intent intent = new Intent(TaskActivity.this, destinationClass);
+                intent.putExtra("task", mTask);
+                startActivity(intent);
+            }
+        });
+
+        mStartButton = findViewById(R.id.start_button);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Class destinationClass = TimeTrackingActivity.class;
                 Intent intent = new Intent(TaskActivity.this, destinationClass);
                 intent.putExtra("task", mTask);
                 startActivity(intent);

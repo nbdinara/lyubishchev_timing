@@ -8,4 +8,14 @@
     <dimen name="start_button_text_size">32sp</dimen>
     <dimen name="list_title_size">16sp</dimen>
     <dimen name="body_text_size">14sp</dimen>
+
+
+    <!--activity_time_tracking.xml-->
+    <dimen name="chronometer_text_size">72sp</dimen>
+    <dimen name="task_name">24sp</dimen>
+    <dimen name="margin_task_name_top">80dp</dimen>
+    <dimen name="margin_chronometer_top">64dp</dimen>
+    <dimen name="margin_start_button_top">80dp</dimen>
+
+
 </resources>
