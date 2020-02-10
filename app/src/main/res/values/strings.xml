@@ -24,7 +24,11 @@
     <string name="sun_label">Sun</string>
 
 
-    <!--activity_time_tracking-->
+    <!--activity_time_tracking.xml-->
     <string name="cancel">Cancel</string>
     <string name="stop">Stop</string>
+
+    <!--activity_time_tracking_summary.xml-->
+    <string name="good_job">Good job!</string>
+    <string name="continue_button">Continue</string>
 </resources>

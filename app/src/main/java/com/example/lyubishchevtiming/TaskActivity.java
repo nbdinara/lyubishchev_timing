@@ -28,7 +28,9 @@ public class TaskActivity extends AppCompatActivity {
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity != null) {
-            mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
+            if (intentThatStartedThisActivity.hasExtra("task")) {
+                mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
+            }
         }
 
         mTaskNameTextView = findViewById(R.id.task_name);

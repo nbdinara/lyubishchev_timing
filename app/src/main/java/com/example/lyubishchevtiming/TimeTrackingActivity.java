@@ -58,10 +58,13 @@ public class TimeTrackingActivity extends AppCompatActivity {
 
     public void stopChronometer(){
         mChronometer.stop();
-        long timeAmount = mChronometer.getBase();
+        long timeAmount = SystemClock.elapsedRealtime() - mChronometer.getBase();
+        String mTaskName = mTask.getName();
         isRunning = false;
+        //TODO save time to database
         Intent intent = new Intent(TimeTrackingActivity.this, TimeTrackingSummaryActivity.class);
         intent.putExtra("time_amount", timeAmount);
+        intent.putExtra("task", mTask);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

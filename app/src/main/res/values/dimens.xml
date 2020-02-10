@@ -17,5 +17,12 @@
     <dimen name="margin_chronometer_top">64dp</dimen>
     <dimen name="margin_start_button_top">80dp</dimen>
 
+    <!--activity_time_tracking_summary.xml-->
+    <dimen name="good_job">56sp</dimen>
+    <dimen name="margin_good_job_top">80dp</dimen>
+    <dimen name="margin_task_label_top">40dp</dimen>
+    <dimen name="margin_time_amount_top">24dp</dimen>
+    <dimen name="margin_cancel_btn_bottom">200dp</dimen>
+
 
 </resources>
