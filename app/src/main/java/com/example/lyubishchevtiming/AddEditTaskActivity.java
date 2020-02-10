@@ -1,12 +1,16 @@
 package com.example.lyubishchevtiming;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,6 +32,9 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         hoursNumberPicker  = findViewById(R.id.hours_number_picker);
         hoursNumberPicker.setMinValue(0);
@@ -55,6 +62,20 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (mTask != null){
             //TODO fill views with data from intent
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // do something here, such as start an Intent to the parent activity.
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     NumberPicker.OnValueChangeListener onHoursChangeListener =
