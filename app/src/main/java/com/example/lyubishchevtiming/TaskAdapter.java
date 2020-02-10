@@ -71,15 +71,16 @@ public class TaskAdapter extends BaseAdapter {
         return convertView;
     }
 
+
     private void setImageViewColor(){
         switch (task.getColor()) {
             case "red":
                 taskImageView.getBackground().setColorFilter(ContextCompat
                         .getColor(mContext, R.color.red), PorterDuff.Mode.SRC_ATOP);
                 break;
-            case "blue":
+            case "glaucous":
                 taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.blue), PorterDuff.Mode.SRC_ATOP);
+                        .getColor(mContext, R.color.glaucous), PorterDuff.Mode.SRC_ATOP);
                 break;
             case "yellow":
                 taskImageView.getBackground().setColorFilter(ContextCompat
@@ -89,9 +90,25 @@ public class TaskAdapter extends BaseAdapter {
                 taskImageView.getBackground().setColorFilter(ContextCompat
                         .getColor(mContext, R.color.green), PorterDuff.Mode.SRC_ATOP);
                 break;
+            case "orange":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.orange), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "peach":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.peach), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "lavender":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.lavender), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case "blue":
+                taskImageView.getBackground().setColorFilter(ContextCompat
+                        .getColor(mContext, R.color.blue), PorterDuff.Mode.SRC_ATOP);
+                break;
             default:
                 taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+                        .getColor(mContext, R.color.colorPrimaryLight), PorterDuff.Mode.SRC_ATOP);
         }
     }
 }
