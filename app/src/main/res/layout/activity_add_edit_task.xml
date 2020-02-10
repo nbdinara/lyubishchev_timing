@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditTaskActivity">
+
+    <CheckBox
+        android:id="@+id/sun_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sun_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_center"
+        app:layout_constraintTop_toBottomOf="@+id/sat_checkBox" />
+
+    <CheckBox
+        android:id="@+id/fri_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fri_label"
+        android:textColor="@color/colorTextSecondary"
+        android:layout_marginTop="@dimen/margin_start"
+        app:layout_constraintStart_toStartOf="@+id/guideline_center"
+        app:layout_constraintTop_toBottomOf="@+id/task_days_heading" />
+
+    <CheckBox
+        android:id="@+id/sat_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sat_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_center"
+        app:layout_constraintTop_toBottomOf="@+id/fri_checkBox" />
+
+    <CheckBox
+        android:id="@+id/thu_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/thu_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/wed_checkBox" />
+
+    <CheckBox
+        android:id="@+id/wed_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wed_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/tue_checkBox" />
+
+    <CheckBox
+        android:id="@+id/tue_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tue_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/mon_checkBox" />
+
+    <TextView
+        android:id="@+id/task_days_heading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/task_days_label"
+        android:textSize="@dimen/list_title_size"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/task_name_edit_text" />
+
+    <TextView
+        android:id="@+id/task_name_heading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/task_name_label"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/list_title_size"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/task_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:textSize="@dimen/list_title_size"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/task_name_heading" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_start" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_start" />
+
+    <CheckBox
+        android:id="@+id/mon_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/mon_label"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/task_days_heading" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/duration_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/duration_label"
+        android:textSize="@dimen/list_title_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/margin_start"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/thu_checkBox" />
+
+    <TextView
+        android:id="@+id/hours_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/hours_label"
+        android:textSize="@dimen/body_text_size"
+        app:layout_constraintStart_toStartOf="@+id/hours_number_picker"
+        app:layout_constraintTop_toBottomOf="@+id/duration_heading" />
+
+    <TextView
+        android:id="@+id/minutes_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/minutes_label"
+        android:textSize="@dimen/body_text_size"
+        app:layout_constraintStart_toStartOf="@+id/minutes_number_picker"
+        app:layout_constraintTop_toBottomOf="@+id/duration_heading" />
+
+    <NumberPicker
+        android:id="@+id/hours_number_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_center"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/hours_heading" />
+
+    <NumberPicker
+        android:id="@+id/minutes_number_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_start"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_center"
+        app:layout_constraintTop_toBottomOf="@+id/minutes_heading" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_start"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:srcCompat="@drawable/circle_shape"
+        android:src="@drawable/ic_ic_correct"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

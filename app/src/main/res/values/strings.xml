@@ -2,8 +2,66 @@
     <string name="app_name">Lyubishchev Timing</string>
     <string name="tab_task">Tasks</string>
     <string name="tab_summary">Summary</string>
+
+    <!--activity_task.xml-->
     <string name="goal">Goal: </string>
     <string name="done">Done: </string>
     <string name="left">Left: </string>
     <string name="start">Start</string>
+
+    <!--activity_add_edit_task.xml-->
+    <string name="task_name_label">Task name: </string>
+    <string name="task_days_label">Days for the task: </string>
+    <string name="duration_label">Duration </string>
+    <string name="hours_label">hours</string>
+    <string name="minutes_label">minutes</string>
+    <string name="mon_label">Mon</string>
+    <string name="tue_label">Tue</string>
+    <string name="wed_label">Wed</string>
+    <string name="thu_label">Thu</string>
+    <string name="fri_label">Fri</string>
+    <string name="sat_label">Sat</string>
+    <string name="sun_label">Sun</string>
+
+
+    <!--spinner hours activity_add_edit_task.xml-->
+    <string-array name="hours_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <!--spinner minutes activity_add_edit_task.xml-->
+    <string-array name="minutes_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+    </string-array>
 </resources>

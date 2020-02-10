@@ -6,4 +6,6 @@
     <dimen name="margin_start">16dp</dimen>
     <dimen name="text_size">16sp</dimen>
     <dimen name="start_button_text_size">32sp</dimen>
+    <dimen name="list_title_size">16sp</dimen>
+    <dimen name="body_text_size">14sp</dimen>
 </resources>
