@@ -3,11 +3,22 @@ package com.example.lyubishchevtiming.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import static androidx.room.ForeignKey.CASCADE;
+
+
+@Entity(tableName = "task")
 public class Task implements Parcelable  {
 
+    @PrimaryKey (autoGenerate = true)
     private int id;
     private String name;
     private String color;
+    @ColumnInfo(name = "days_of_activity")
     private Week daysOfActivity;
     private long duration;
 
@@ -15,14 +26,31 @@ public class Task implements Parcelable  {
         // empty constructor
     }
 
-    public Task (String name, String color){
+    public Task (int id, String name, String color, Week daysOfActivity, long duration){
+        this.id = id;
         this.name = name;
         this.color = color;
+        this.color = color;
+        this.daysOfActivity = daysOfActivity;
+        this.duration = duration;
     }
 
+    @Ignore
+    public Task (String name, String color, Week daysOfActivity, long duration){
+        this.name = name;
+        this.color = color;
+        this.color = color;
+        this.daysOfActivity = daysOfActivity;
+        this.duration = duration;
+    }
+
+    @Ignore
     protected Task(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         color  = in.readString();
+        daysOfActivity = (Week) in.readParcelable(Week.class.getClassLoader());
+        duration = in.readLong();
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -44,8 +72,11 @@ public class Task implements Parcelable  {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(color);
+        parcel.writeParcelable(daysOfActivity, i);
+        parcel.writeLong(duration);
     }
 
     public int getId() {

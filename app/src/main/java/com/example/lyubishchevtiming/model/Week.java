@@ -1,6 +1,11 @@
 package com.example.lyubishchevtiming.model;
 
-public class Week {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.room.Ignore;
+
+public class Week implements Parcelable {
 
     private boolean mon;
     private boolean tue;
@@ -23,6 +28,44 @@ public class Week {
         this.fri = fri;
         this.sat = sat;
         this.sun = sun;
+    }
+
+    protected Week(Parcel in) {
+        mon = in.readByte() != 0;
+        tue = in.readByte() != 0;
+        wed  = in.readByte() != 0;
+        thu = in.readByte() != 0;
+        fri = in.readByte() != 0;
+        sat = in.readByte() != 0;
+        sun = in.readByte() != 0;
+    }
+
+    public static final Creator<Week> CREATOR = new Creator<Week>() {
+        @Override
+        public Week createFromParcel(Parcel in) {
+            return new Week(in);
+        }
+
+        @Override
+        public Week[] newArray(int size) {
+            return new Week[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (mon ? 1 : 0));
+        parcel.writeByte((byte) (tue ? 1 : 0));
+        parcel.writeByte((byte) (wed ? 1 : 0));
+        parcel.writeByte((byte) (thu ? 1 : 0));
+        parcel.writeByte((byte) (fri ? 1 : 0));
+        parcel.writeByte((byte) (sat ? 1 : 0));
+        parcel.writeByte((byte) (sun ? 1 : 0));
     }
 
     public boolean isMon() {
