@@ -30,4 +30,8 @@
     <dimen name="margin_cancel_btn_bottom">200dp</dimen>
 
 
+    <!--list_item.xml-->
+    <dimen name="list_item_height">72dp</dimen>
+
+
 </resources>
