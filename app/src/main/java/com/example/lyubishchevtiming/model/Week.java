@@ -3,24 +3,27 @@ package com.example.lyubishchevtiming.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "week")
 public class Week implements Parcelable {
 
-    private boolean mon;
-    private boolean tue;
-    private boolean wed;
-    private boolean thu;
-    private boolean fri;
-    private boolean sat;
-    private boolean sun;
+    @PrimaryKey(autoGenerate = false)
+    String id;
+    private int mon;
+    private int tue;
+    private int wed;
+    private int thu;
+    private int fri;
+    private int sat;
+    private int sun;
 
-    public Week(){
-        //empty constructor
-    }
 
-    public Week(boolean mon, boolean tue, boolean wed, boolean thu, boolean fri, boolean sat,
-                boolean sun){
+    public Week(String id, int mon, int tue, int wed, int thu, int fri, int sat,
+                int sun){
+        this.id = id;
         this.mon = mon;
         this.tue = tue;
         this.wed = wed;
@@ -30,14 +33,16 @@ public class Week implements Parcelable {
         this.sun = sun;
     }
 
+    @Ignore
     protected Week(Parcel in) {
-        mon = in.readByte() != 0;
-        tue = in.readByte() != 0;
-        wed  = in.readByte() != 0;
-        thu = in.readByte() != 0;
-        fri = in.readByte() != 0;
-        sat = in.readByte() != 0;
-        sun = in.readByte() != 0;
+        id = in.readString();
+        mon = in.readInt();
+        tue = in.readInt();
+        wed  = in.readInt();
+        thu = in.readInt();
+        fri = in.readInt();
+        sat = in.readInt();
+        sun = in.readInt();
     }
 
     public static final Creator<Week> CREATOR = new Creator<Week>() {
@@ -59,68 +64,77 @@ public class Week implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeByte((byte) (mon ? 1 : 0));
-        parcel.writeByte((byte) (tue ? 1 : 0));
-        parcel.writeByte((byte) (wed ? 1 : 0));
-        parcel.writeByte((byte) (thu ? 1 : 0));
-        parcel.writeByte((byte) (fri ? 1 : 0));
-        parcel.writeByte((byte) (sat ? 1 : 0));
-        parcel.writeByte((byte) (sun ? 1 : 0));
+        parcel.writeString(id);
+        parcel.writeInt(mon);
+        parcel.writeInt(tue);
+        parcel.writeInt(wed);
+        parcel.writeInt(thu);
+        parcel.writeInt(fri);
+        parcel.writeInt(sat);
+        parcel.writeInt(sun);
     }
 
-    public boolean isMon() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getMon() {
         return mon;
     }
 
-    public void setMon(boolean mon) {
+    public void setMon(int mon) {
         this.mon = mon;
     }
 
-    public boolean isTue() {
+    public int getTue() {
         return tue;
     }
 
-    public void setTue(boolean tue) {
+    public void setTue(int tue) {
         this.tue = tue;
     }
 
-    public boolean isWed() {
+    public int getWed() {
         return wed;
     }
 
-    public void setWed(boolean wed) {
+    public void setWed(int wed) {
         this.wed = wed;
     }
 
-    public boolean isThu() {
+    public int getThu() {
         return thu;
     }
 
-    public void setThu(boolean thu) {
+    public void setThu(int thu) {
         this.thu = thu;
     }
 
-    public boolean isFri() {
+    public int getFri() {
         return fri;
     }
 
-    public void setFri(boolean fri) {
+    public void setFri(int fri) {
         this.fri = fri;
     }
 
-    public boolean isSat() {
+    public int getSat() {
         return sat;
     }
 
-    public void setSat(boolean sat) {
+    public void setSat(int sat) {
         this.sat = sat;
     }
 
-    public boolean isSun() {
+    public int getSun() {
         return sun;
     }
 
-    public void setSun(boolean sun) {
+    public void setSun(int sun) {
         this.sun = sun;
     }
 }

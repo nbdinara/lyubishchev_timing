@@ -12,9 +12,6 @@ public class Summary {
     private long actualTimeAmount;
     private String taskColor;
 
-    public Summary(){
-        //empty constructor
-    }
 
     public Summary(Date startDate, Date endDate, int taskId, String taskName, long desiredTimeAmount,
                    long actualTimeAmount, String taskColor){
