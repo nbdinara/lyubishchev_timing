@@ -31,8 +31,8 @@ public interface LogDao {
     @Query("SELECT  t.id, t.name, t.duration, COUNT(l.today_time_amount), t.color " +
             "FROM log l LEFT JOIN task t " +
             "ON l.task_id = t.id " +
-            "WHERE l.today_date BETWEEN :start_date AND :end_date " +
-            "GROUP BY l.task_id")
+            "GROUP BY l.task_id " +
+            "HAVING l.today_date BETWEEN :start_date AND :end_date " )
     List<Summary> getLogsAndTaskInfoForSpecificDate(Date start_date, Date end_date);
 
 
