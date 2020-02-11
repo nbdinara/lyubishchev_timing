@@ -18,7 +18,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/task_name"
+                android:id="@+id/task_name_summary"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="match_parent"

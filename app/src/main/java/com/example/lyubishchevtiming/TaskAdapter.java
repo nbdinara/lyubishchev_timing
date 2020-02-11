@@ -2,27 +2,18 @@ package com.example.lyubishchevtiming;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.PorterDuff;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 public class TaskAdapter extends BaseAdapter {
 
@@ -87,7 +78,7 @@ public class TaskAdapter extends BaseAdapter {
             // 3
             taskImageView = (ImageView) convertView.findViewById(R.id.task_image);
             final TextView taskLetter = (TextView) convertView.findViewById(R.id.task_letter);
-            final TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
+            final TextView taskName = (TextView) convertView.findViewById(R.id.task_name_summary);
 
             setImageViewColor();
 
