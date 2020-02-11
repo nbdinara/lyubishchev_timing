@@ -1,4 +1,4 @@
-package com.example.lyubishchevtiming;
+package com.example.lyubishchevtiming.model;
 
 import java.util.Date;
 

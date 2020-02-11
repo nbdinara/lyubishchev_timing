@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lyubishchevtiming.model.Summary;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -78,6 +79,8 @@ public class SummaryFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     public void addData(PieChart chart){
         ArrayList<PieEntry> yEntries = new ArrayList<>();

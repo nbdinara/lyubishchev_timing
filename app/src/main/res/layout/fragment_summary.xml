@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <LinearLayout android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -12,17 +13,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.github.mikephil.charting.charts.PieChart
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/pie_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:layout_marginTop="@dimen/margin_start" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/tasks_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 </LinearLayout>
+

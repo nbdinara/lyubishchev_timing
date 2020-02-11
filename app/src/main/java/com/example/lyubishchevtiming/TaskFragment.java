@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.lyubishchevtiming.model.Task;
+
 import java.util.ArrayList;
 
 public class TaskFragment extends Fragment {

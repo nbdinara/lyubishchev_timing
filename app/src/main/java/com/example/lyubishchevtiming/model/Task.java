@@ -1,12 +1,15 @@
-package com.example.lyubishchevtiming;
+package com.example.lyubishchevtiming.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Task implements Parcelable  {
 
+    private int id;
     private String name;
     private String color;
+    private Week daysOfActivity;
+    private long duration;
 
     public Task (){
         // empty constructor
@@ -45,6 +48,29 @@ public class Task implements Parcelable  {
         parcel.writeString(color);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Week getDaysOfActivity() {
+        return daysOfActivity;
+    }
+
+    public void setDaysOfActivity(Week daysOfActivity) {
+        this.daysOfActivity = daysOfActivity;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 
     public String getName(){
         return name;

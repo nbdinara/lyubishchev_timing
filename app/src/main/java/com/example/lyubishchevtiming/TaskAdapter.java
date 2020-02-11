@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.lyubishchevtiming.model.Task;
+
 import java.util.ArrayList;
 
 public class TaskAdapter extends BaseAdapter {

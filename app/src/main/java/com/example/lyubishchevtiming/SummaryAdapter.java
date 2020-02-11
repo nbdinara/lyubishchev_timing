@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lyubishchevtiming.model.Summary;
+
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
