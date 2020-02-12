@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
@@ -62,6 +64,17 @@ public class AddEditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_task);
         mDb = AppDatabase.getInstance(this);
 
+        mTaskNameEditText = findViewById(R.id.task_name_edit_text);
+        monCheckBox = findViewById(R.id.mon_checkBox);
+        tueCheckBox = findViewById(R.id.tue_checkBox);
+        wedCheckBox = findViewById(R.id.wed_checkBox);
+        thuCheckBox = findViewById(R.id.thu_checkBox);
+        friCheckBox = findViewById(R.id.fri_checkBox);
+        satCheckBox = findViewById(R.id.sat_checkBox);
+        sunCheckBox = findViewById(R.id.sun_checkBox);
+        hoursNumberPicker  = findViewById(R.id.hours_number_picker);
+        minutesNumberPicker  = findViewById(R.id.minutes_number_picker);
+
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
@@ -73,25 +86,17 @@ public class AddEditTaskActivity extends AppCompatActivity {
             isEdit = false;
         }
 
-        mTaskNameEditText = findViewById(R.id.task_name_edit_text);
-        monCheckBox = findViewById(R.id.mon_checkBox);
-        tueCheckBox = findViewById(R.id.tue_checkBox);
-        wedCheckBox = findViewById(R.id.wed_checkBox);
-        thuCheckBox = findViewById(R.id.thu_checkBox);
-        friCheckBox = findViewById(R.id.fri_checkBox);
-        satCheckBox = findViewById(R.id.sat_checkBox);
-        sunCheckBox = findViewById(R.id.sun_checkBox);
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        hoursNumberPicker  = findViewById(R.id.hours_number_picker);
+
         hoursNumberPicker.setMinValue(0);
         hoursNumberPicker.setMaxValue(23);
         hoursNumberPicker.setOnValueChangedListener(onHoursChangeListener);
 
-        minutesNumberPicker  = findViewById(R.id.minutes_number_picker);
         minutesNumberPicker.setMinValue(0);
         minutesNumberPicker.setMaxValue(59);
         minutesNumberPicker.setOnValueChangedListener(onMinutesChangeListener);
@@ -102,7 +107,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
             public void onClick(View v) {
                //TODO save changes to database
                 if (isEdit){
-                    getDataFromFields();
+                    getUpdatedDataFromFields();
                     updateTaskInDatabase();
                 } else {
                     getDataFromFields();
@@ -119,35 +124,53 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (mTask != null){
             //TODO fill views with data from intent
             loadWeekFromDatabase(mTask.getWeekId());
-            mTaskNameEditText.setText(mTaskNameEditText.getText());
-            if(mWeek.getMon() != 0){
-                monCheckBox.setChecked(true);
-            }
-            if(mWeek.getTue() != 0){
-                tueCheckBox.setChecked(true);
-            }
-            if(mWeek.getWed() != 0){
-                wedCheckBox.setChecked(true);
-            }
-            if(mWeek.getThu() != 0){
-                thuCheckBox.setChecked(true);
-            }
-            if(mWeek.getFri() != 0){
-                friCheckBox.setChecked(true);
-            }
-            if(mWeek.getSat() != 0){
-                satCheckBox.setChecked(true);
-            }
-            if(mWeek.getSun() != 0){
-                sunCheckBox.setChecked(true);
-            }
-            if(mTask.getDuration()!=0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-            }
-            Date date = convertLongToDate(mTask.getDuration());
-            Calendar calendar = GregorianCalendar.getInstance();
-            hoursNumberPicker.setValue(calendar.get(Calendar.HOUR_OF_DAY));
-            minutesNumberPicker.setValue(calendar.get(Calendar.MINUTE));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTaskNameEditText.setText(mTask.getName(), TextView.BufferType.EDITABLE);
+                            if(mWeek.getMon() != 0){
+                                monCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getTue() != 0){
+                                tueCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getWed() != 0){
+                                wedCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getThu() != 0){
+                                thuCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getFri() != 0){
+                                friCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getSat() != 0){
+                                satCheckBox.setChecked(true);
+                            }
+                            if(mWeek.getSun() != 0){
+                                sunCheckBox.setChecked(true);
+                            }
+                            if(mTask.getDuration()!=0){
+
+                            }
+                            Date date = convertLongToDate(mTask.getDuration());
+                            Log.d(TAG, "run: duration" + mTask.getDuration());
+                            Log.d(TAG, "run: date" + date);
+                            hoursNumberPicker.setValue(date.getHours());
+                            Log.d(TAG, "run: hour" + date.getHours());
+
+                            minutesNumberPicker.setValue(date.getMinutes());
+                            Log.d(TAG, "run: minutes" + date.getMinutes());
+
+
+                        }
+                    });
+                }
+            }, 100);
+
 
 
         }
@@ -179,47 +202,103 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
         if (tueCheckBox.isChecked()) {
             mWeek.setTue(milliseconds);
-            weekId = weekId + "t";
         } else {
             mWeek.setTue(0);
         }
         if (wedCheckBox.isChecked()) {
             mWeek.setWed(milliseconds);
-            weekId = weekId + "w";
         } else {
             mWeek.setWed(0);
         }
         if (thuCheckBox.isChecked()) {
             mWeek.setThu(milliseconds);
-            weekId = weekId + "tu";
         } else {
             mWeek.setThu(0);
         }
         if (friCheckBox.isChecked()) {
             mWeek.setFri(milliseconds);
-            weekId = weekId + "f";
         } else {
             mWeek.setFri(0);
         }
         if (satCheckBox.isChecked()) {
             mWeek.setSat(milliseconds);
-            weekId = weekId + "st";
         } else {
             mWeek.setSat(0);
         }
         if (sunCheckBox.isChecked()) {
             mWeek.setSun(milliseconds);
-            weekId = weekId + "s";
         } else {
             mWeek.setSun(0);
         }
 
         mWeek.setId(weekId);
         mTask.setWeekId(mWeek.getId());
-
-
-
     }
+
+
+    public void getUpdatedDataFromFields(){
+        mTask.setName(mTaskNameEditText.getText().toString());
+        Log.d(TAG, "getUpdatedDataFromFields: mTaskNameEditText.getText() " + mTaskNameEditText.getText().toString());
+        mTask.setColor("blue");
+        int hours = hoursNumberPicker.getValue();
+        Log.d(TAG, "getUpdatedDataFromFields: hoursNumberPicker.getValue() " + hoursNumberPicker.getValue());
+
+        int minutes = minutesNumberPicker.getValue();
+        Log.d(TAG, "getUpdatedDataFromFields: minutesNumberPicker.getValue() " + hoursNumberPicker.getValue());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        String dateInString = hours + ":" + minutes + ":" + "00";
+        Date date = new Date();
+
+        try {
+            date = formatter.parse(dateInString);
+            Log.d(TAG, "getUpdatedDataFromFields: date " + date);
+
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long milliseconds = date.getTime();
+        mTask.setDuration(milliseconds);
+
+        String weekId = mTask.getId() + "";
+        if (monCheckBox.isChecked()) {
+            mWeek.setMon(milliseconds);
+        } else {
+            mWeek.setMon(0);
+        }
+        if (tueCheckBox.isChecked()) {
+            mWeek.setTue(milliseconds);
+        } else {
+            mWeek.setTue(0);
+        }
+        if (wedCheckBox.isChecked()) {
+            mWeek.setWed(milliseconds);
+        } else {
+            mWeek.setWed(0);
+        }
+        if (thuCheckBox.isChecked()) {
+            mWeek.setThu(milliseconds);
+        } else {
+            mWeek.setThu(0);
+        }
+        if (friCheckBox.isChecked()) {
+            mWeek.setFri(milliseconds);
+        } else {
+            mWeek.setFri(0);
+        }
+        if (satCheckBox.isChecked()) {
+            mWeek.setSat(milliseconds);
+        } else {
+            mWeek.setSat(0);
+        }
+        if (sunCheckBox.isChecked()) {
+            mWeek.setSun(milliseconds);
+        } else {
+            mWeek.setSun(0);
+        }
+    }
+
 
     public Date convertLongToDate(long longNumber){
         Date date = new Date(longNumber);

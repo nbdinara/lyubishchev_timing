@@ -10,6 +10,7 @@
 
 
     <GridView
+        android:visibility="visible"
         android:id="@+id/grid_view_tasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
