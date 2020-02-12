@@ -3,11 +3,13 @@ package com.example.lyubishchevtiming;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,15 +21,20 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.viewmodel.MainViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class TaskFragment extends Fragment {
 
     private ArrayList<Task> tasks;
     private AppDatabase mDb;
     private TaskAdapter taskAdapter;
+    private FloatingActionButton mAddTaskButton;
+    private GridView gridView;
 
     public TaskFragment(){
         // empty constructor
@@ -35,14 +42,16 @@ public class TaskFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_task, container, false);
+        View rootView =  inflater.from(getContext()).inflate(R.layout.fragment_task, container, false);
+        //LayoutInflater.from(context).inflate(R.layout.test, this, true);
         TextView text = (TextView) rootView.findViewById(R.id.text);
 
-        GridView gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
-        setupViewModel();
+        gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
         //taskAdapter = new TaskAdapter(getActivity(), tasks);
         gridView.setAdapter(taskAdapter);
         mDb = AppDatabase.getInstance(getActivity());
+        mAddTaskButton = rootView.findViewById(R.id.fab_add_task);
+        setupViewModel();
 
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,7 +68,12 @@ public class TaskFragment extends Fragment {
             }
         });
 
-
+        mAddTaskButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Class destinationClass = AddEditTaskActivity.class;
+                Intent intentToStartTaskActivity = new Intent(getContext(), destinationClass);
+                getContext().startActivity(intentToStartTaskActivity);            }
+        });
         return rootView;
     }
 
@@ -68,14 +82,33 @@ public class TaskFragment extends Fragment {
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.getTasks().observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
             @Override
-            public void onChanged(@Nullable List<Task> tasks) {
-                if (tasks != null) {
+            public void onChanged(List<Task> tasks) {
+                if (!tasks.isEmpty()) {
+                    Log.d(TAG, "onChanged: " + tasks.isEmpty());
                     taskAdapter = new TaskAdapter(getActivity(), tasks);
+                    showTasksList();
                 } else {
-                    //showErrorMessage();
+                    showAddButton();
                 }
             }
         });
     }
+
+    public void showAddButton() {
+        gridView.setVisibility(View.GONE);
+        mAddTaskButton.setVisibility(View.VISIBLE);
+    }
+
+    public void showTasksList() {
+        mAddTaskButton.setVisibility(View.GONE);
+        gridView.setVisibility(View.VISIBLE);
+    }
+
+    public void addTask(View view){
+        Class destinationClass = AddEditTaskActivity.class;
+        Intent intentToStartTaskActivity = new Intent(getContext(), destinationClass);
+        getContext().startActivity(intentToStartTaskActivity);
+    }
+
 
 }
