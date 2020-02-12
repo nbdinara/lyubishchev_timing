@@ -14,11 +14,12 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Query("SELECT * FROM task WHERE id = :id")
-    LiveData<List<Task>> loadTaskById(int id);
+    @Query("SELECT * FROM task t LEFT JOIN week w ON t.days_of_activity = w.id WHERE t.id = :id")
+    LiveData<Task> loadTaskById(int id);
 
     @Query("SELECT * FROM task")
-    LiveData<Task>loadAllTasks();
+    LiveData<List<Task>>loadAllTasks();
+
 
     @Insert
     void insertTask(Task task);

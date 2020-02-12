@@ -33,8 +33,16 @@ public interface LogDao {
             "ON l.task_id = t.id " +
             "GROUP BY l.task_id " +
             "HAVING l.today_date BETWEEN :start_date AND :end_date " )
-    List<Summary> getLogsAndTaskInfoForSpecificDate(Date start_date, Date end_date);
+    LiveData<List<Summary>> getLogsAndTaskInfoForSpecificDate(Date start_date, Date end_date);
 
+
+    @Query("SELECT  t.id, t.name, t.duration, COUNT(l.today_time_amount), t.color " +
+            "FROM log l LEFT JOIN task t " +
+            "ON l.task_id = t.id " +
+            "GROUP BY l.task_id " +
+            "HAVING convert(varchar(10), l.today_date =:today, 102)\n" +
+            "            = convert(varchar(10), getdate(), 102)" )
+    LiveData<List<Summary>> getLogsAndTaskInfoForToday(Date today);
 
 
 }
