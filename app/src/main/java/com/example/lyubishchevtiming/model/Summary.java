@@ -1,15 +1,22 @@
 package com.example.lyubishchevtiming.model;
 
+import androidx.room.ColumnInfo;
+
 import java.util.Date;
 
 public class Summary {
 
     //private Date startDate;
     //private Date endDate;
+    @ColumnInfo(name = "id")
     private int taskId;
+    @ColumnInfo(name = "name")
     private String taskName;
+    @ColumnInfo(name = "COUNT(l.desired_time_amount)")
     private long desiredTimeAmount;
+    @ColumnInfo(name = "COUNT(l.today_time_amount)")
     private long actualTimeAmount;
+    @ColumnInfo(name = "color")
     private String taskColor;
 
 

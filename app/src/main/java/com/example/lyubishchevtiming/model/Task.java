@@ -2,6 +2,8 @@ package com.example.lyubishchevtiming.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -21,30 +23,32 @@ import static androidx.room.ForeignKey.CASCADE;
 
 public class Task implements Parcelable  {
 
+    @NonNull
     @PrimaryKey (autoGenerate = true)
     private int id;
     private String name;
     private String color;
-    @ColumnInfo(name = "days_of_activity")
-    private String week_id;
+    @ColumnInfo(name = "week_id")
+    private String weekId;
     private long duration;
 
 
-    public Task (int id, String name, String color, String week_id, long duration){
+
+    public Task (int id, String name, String color, String weekId, long duration){
         this.id = id;
         this.name = name;
         this.color = color;
         this.color = color;
-        this.week_id = week_id;
+        this.weekId = weekId;
         this.duration = duration;
     }
 
     @Ignore
-    public Task (String name, String color, String week_id, long duration){
+    public Task (String name, String color, String weekId, long duration){
         this.name = name;
         this.color = color;
         this.color = color;
-        this.week_id = week_id;
+        this.weekId = weekId;
         this.duration = duration;
     }
 
@@ -53,7 +57,7 @@ public class Task implements Parcelable  {
         id = in.readInt();
         name = in.readString();
         color  = in.readString();
-        week_id = in.readString();
+        weekId = in.readString();
         duration = in.readLong();
     }
 
@@ -79,7 +83,7 @@ public class Task implements Parcelable  {
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(color);
-        parcel.writeString(week_id);
+        parcel.writeString(weekId);
         parcel.writeLong(duration);
     }
 
@@ -92,11 +96,11 @@ public class Task implements Parcelable  {
     }
 
     public String getWeekId() {
-        return week_id;
+        return weekId;
     }
 
     public void setWeekId(String week_id) {
-        this.week_id = week_id;
+        this.weekId = week_id;
     }
 
     public long getDuration() {

@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Query("SELECT * FROM task t LEFT JOIN week w ON t.days_of_activity = w.id WHERE t.id = :id")
+    @Query("SELECT * FROM task t WHERE t.id = :id")
     LiveData<Task> loadTaskById(int id);
 
     @Query("SELECT * FROM task")

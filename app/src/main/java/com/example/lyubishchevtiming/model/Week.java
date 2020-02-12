@@ -3,6 +3,7 @@ package com.example.lyubishchevtiming.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -10,19 +11,20 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "week")
 public class Week implements Parcelable {
 
+    @NonNull
     @PrimaryKey(autoGenerate = false)
     String id;
-    private int mon;
-    private int tue;
-    private int wed;
-    private int thu;
-    private int fri;
-    private int sat;
-    private int sun;
+    private long mon;
+    private long tue;
+    private long wed;
+    private long thu;
+    private long fri;
+    private long sat;
+    private long sun;
 
 
-    public Week(String id, int mon, int tue, int wed, int thu, int fri, int sat,
-                int sun){
+    public Week(String id, long mon, long tue, long wed, long thu, long fri, long sat,
+                long sun){
         this.id = id;
         this.mon = mon;
         this.tue = tue;
@@ -36,13 +38,13 @@ public class Week implements Parcelable {
     @Ignore
     protected Week(Parcel in) {
         id = in.readString();
-        mon = in.readInt();
-        tue = in.readInt();
-        wed  = in.readInt();
-        thu = in.readInt();
-        fri = in.readInt();
-        sat = in.readInt();
-        sun = in.readInt();
+        mon = in.readLong();
+        tue = in.readLong();
+        wed  = in.readLong();
+        thu = in.readLong();
+        fri = in.readLong();
+        sat = in.readLong();
+        sun = in.readLong();
     }
 
     public static final Creator<Week> CREATOR = new Creator<Week>() {
@@ -65,13 +67,13 @@ public class Week implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
-        parcel.writeInt(mon);
-        parcel.writeInt(tue);
-        parcel.writeInt(wed);
-        parcel.writeInt(thu);
-        parcel.writeInt(fri);
-        parcel.writeInt(sat);
-        parcel.writeInt(sun);
+        parcel.writeLong(mon);
+        parcel.writeLong(tue);
+        parcel.writeLong(wed);
+        parcel.writeLong(thu);
+        parcel.writeLong(fri);
+        parcel.writeLong(sat);
+        parcel.writeLong(sun);
     }
 
     public String getId() {
@@ -82,59 +84,59 @@ public class Week implements Parcelable {
         this.id = id;
     }
 
-    public int getMon() {
+    public long getMon() {
         return mon;
     }
 
-    public void setMon(int mon) {
+    public void setMon(long mon) {
         this.mon = mon;
     }
 
-    public int getTue() {
+    public long getTue() {
         return tue;
     }
 
-    public void setTue(int tue) {
+    public void setTue(long tue) {
         this.tue = tue;
     }
 
-    public int getWed() {
+    public long getWed() {
         return wed;
     }
 
-    public void setWed(int wed) {
+    public void setWed(long wed) {
         this.wed = wed;
     }
 
-    public int getThu() {
+    public long getThu() {
         return thu;
     }
 
-    public void setThu(int thu) {
+    public void setThu(long thu) {
         this.thu = thu;
     }
 
-    public int getFri() {
+    public long getFri() {
         return fri;
     }
 
-    public void setFri(int fri) {
+    public void setFri(long fri) {
         this.fri = fri;
     }
 
-    public int getSat() {
+    public long getSat() {
         return sat;
     }
 
-    public void setSat(int sat) {
+    public void setSat(long sat) {
         this.sat = sat;
     }
 
-    public int getSun() {
+    public long getSun() {
         return sun;
     }
 
-    public void setSun(int sun) {
+    public void setSun(long sun) {
         this.sun = sun;
     }
 }

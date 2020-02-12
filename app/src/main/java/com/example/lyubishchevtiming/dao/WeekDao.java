@@ -16,7 +16,7 @@ public interface WeekDao {
     LiveData<List<Week>> loadAllWeekDaysCombinations();
 
     @Query("SELECT * FROM week WHERE id = :id")
-    LiveData<Week> loadRecipeById(int id);
+    LiveData<Week> loadWeekById(int id);
 
     @Insert
     void insertWeekDayCombination(Week week);

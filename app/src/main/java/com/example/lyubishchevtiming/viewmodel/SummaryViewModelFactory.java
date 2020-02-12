@@ -20,18 +20,11 @@ public class SummaryViewModelFactory extends ViewModelProvider.NewInstanceFactor
         mEndDate = endDate;
     }
 
-    public SummaryViewModelFactory(AppDatabase database, Date today) {
-        mDb = database;
-        mStartDate= today;
-        mEndDate = null;
-    }
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
-        if (mEndDate !=null) {
-            return (T) new SummaryViewModel(mDb, mStartDate, mEndDate);
-        } else return (T) new SummaryViewModel(mDb, mStartDate);
+        return (T) new SummaryViewModel(mDb, mStartDate, mEndDate);
     }
 
 

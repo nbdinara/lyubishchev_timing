@@ -10,16 +10,24 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
+import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskFragment extends Fragment {
 
     private ArrayList<Task> tasks;
-
+    private AppDatabase mDb;
+    private TaskAdapter taskAdapter;
 
     public TaskFragment(){
         // empty constructor
@@ -30,16 +38,12 @@ public class TaskFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_task, container, false);
         TextView text = (TextView) rootView.findViewById(R.id.text);
 
-        tasks = new ArrayList<>();
-        tasks.add(new Task ( "Meditation", "yellow"));
-        tasks.add(new Task ("Yoga", "red"));
-        tasks.add(new Task ("Reading", "green"));
-        tasks.add(new Task ("Dancing", "red"));
-        tasks.add(new Task ("Cooking", "blue"));
-
         GridView gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
-        TaskAdapter taskAdapter = new TaskAdapter(getActivity(), tasks);
+        setupViewModel();
+        //taskAdapter = new TaskAdapter(getActivity(), tasks);
         gridView.setAdapter(taskAdapter);
+        mDb = AppDatabase.getInstance(getActivity());
+
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,6 +61,21 @@ public class TaskFragment extends Fragment {
 
 
         return rootView;
+    }
+
+
+    private void setupViewModel() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getTasks().observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable List<Task> tasks) {
+                if (tasks != null) {
+                    taskAdapter = new TaskAdapter(getActivity(), tasks);
+                } else {
+                    //showErrorMessage();
+                }
+            }
+        });
     }
 
 }

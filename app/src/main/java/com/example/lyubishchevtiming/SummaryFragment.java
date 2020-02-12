@@ -56,12 +56,9 @@ public class SummaryFragment extends Fragment {
 
         mSummaries = new ArrayList<>();
 
-        mSummaries.add(new Summary(date, date, 1, "Meditation", 10,
-                5, "blue"));
-        mSummaries.add(new Summary(date, date, 1, "Yoga", 10,
-                2, "blue"));
-        mSummaries.add(new Summary(date, date, 1, "Yoga", 10,
-                10, "blue"));
+        mSummaries.add(new Summary(1, "name", 10, 1, "blue"));
+        mSummaries.add(new Summary(2, "name2", 10, 5, "blue"));
+        mSummaries.add(new Summary(3, "name3", 10, 10, "blue"));
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.tasks_list_recycler_view);
 

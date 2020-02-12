@@ -21,9 +21,6 @@ public class SummaryViewModel extends ViewModel {
         summary = database.logDao().getLogsAndTaskInfoForSpecificDate(startDate, endDate);
     }
 
-    public SummaryViewModel(AppDatabase database, Date startDate) {
-        summary = database.logDao().getLogsAndTaskInfoForToday(startDate);
-    }
 
     public LiveData<List<Summary>> getSummary(){
         return summary;

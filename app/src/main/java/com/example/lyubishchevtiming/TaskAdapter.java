@@ -16,17 +16,18 @@ import androidx.core.content.ContextCompat;
 import com.example.lyubishchevtiming.model.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
     private Task task;
     private ImageView taskImageView;
     private Button addButton;
 
     // 1
-    public TaskAdapter(Context context, ArrayList<Task> tasks) {
+    public TaskAdapter(Context context, List<Task> tasks) {
         this.mContext = context;
         this.tasks = tasks;
     }
