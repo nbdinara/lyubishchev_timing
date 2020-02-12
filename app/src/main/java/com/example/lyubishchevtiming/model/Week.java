@@ -35,6 +35,10 @@ public class Week implements Parcelable {
         this.sun = sun;
     }
 
+    public Week(){
+
+    }
+
     @Ignore
     protected Week(Parcel in) {
         id = in.readString();

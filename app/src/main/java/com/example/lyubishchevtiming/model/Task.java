@@ -33,7 +33,6 @@ public class Task implements Parcelable  {
     private long duration;
 
 
-
     public Task (int id, String name, String color, String weekId, long duration){
         this.id = id;
         this.name = name;
@@ -41,6 +40,11 @@ public class Task implements Parcelable  {
         this.color = color;
         this.weekId = weekId;
         this.duration = duration;
+    }
+
+    @Ignore
+    public Task (){
+
     }
 
     @Ignore
