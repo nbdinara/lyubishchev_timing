@@ -9,24 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+
 
 public class TaskFragment extends Fragment {
 
@@ -34,6 +28,8 @@ public class TaskFragment extends Fragment {
     private AppDatabase mDb;
     private TaskAdapter taskAdapter;
     private FloatingActionButton mAddTaskButton;
+    private FloatingActionButton mDeleteTaskButton;
+
     private GridView gridView;
 
     public TaskFragment(){
@@ -43,31 +39,20 @@ public class TaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView =  inflater.from(getContext()).inflate(R.layout.fragment_task, container, false);
-        //LayoutInflater.from(context).inflate(R.layout.test, this, true);
-        TextView text = (TextView) rootView.findViewById(R.id.text);
 
         gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
+        setupViewModel();
+
         if (tasks!=null) {
             taskAdapter = new TaskAdapter(getActivity(), tasks);
         }
+
         gridView.setAdapter(taskAdapter);
+
         mDb = AppDatabase.getInstance(getActivity());
         mAddTaskButton = rootView.findViewById(R.id.fab_add_task);
 
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Task task = tasks.get(position);
-                Context context = getActivity();
-                Class destinationClass = TaskActivity.class;
-                Intent intentToStartTaskActivity = new Intent(context, destinationClass);
-                //Log.d(TAG, "myrecipe name: " + recipe.getName());
-                //Log.d(TAG, "myrecipe step 3: " + recipe.getSteps().get(2).getDescription());
-                intentToStartTaskActivity.putExtra("task", task);
-                startActivity(intentToStartTaskActivity);
-            }
-        });
+        mDeleteTaskButton = rootView.findViewById(R.id.fab_delete_task);
 
         mAddTaskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,7 +61,20 @@ public class TaskFragment extends Fragment {
                 getContext().startActivity(intentToStartTaskActivity);            }
         });
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Task task = tasks.get(position);
+                Context context = getActivity();
+                Class destinationClass = TaskActivity.class;
+                Intent intentToStartTaskActivity = new Intent(context, destinationClass);
+                intentToStartTaskActivity.putExtra("task", task);
+                startActivity(intentToStartTaskActivity);
+            }
+        });
+
         setupViewModel();
+
         return rootView;
     }
 
@@ -87,32 +85,28 @@ public class TaskFragment extends Fragment {
             @Override
             public void onChanged(List<Task> mTasks) {
                 if (!mTasks.isEmpty()) {
-                    Log.d(TAG, "onChanged: " + mTasks.isEmpty());
-                    if (!mTasks.isEmpty()){
-                        for (int i = 0; i < mTasks.size(); i++) {
-                            Log.d(TAG, "onChanged: " + mTasks.get(i).getName());
-                        }
-                    }
                     tasks = mTasks;
+                    for (int i =0; i < tasks.size(); i++) {
+                        Log.d(TAG, "onChanged: listId " +i + " n: " + tasks.get(i).getName() + " t_id: " + tasks.get(i).getId() + " w:id " + tasks.get(i).getWeekId());
+                    }
                     taskAdapter = new TaskAdapter(getActivity(), tasks);
                     gridView.setAdapter(taskAdapter);
                     showTasksList();
                 } else {
                     showAddButton();
                 }
+
             }
         });
     }
 
     public void showAddButton() {
-        //gridView.setVisibility(View.GONE);
+        gridView.setVisibility(View.GONE);
         mAddTaskButton.setVisibility(View.VISIBLE);
     }
 
     public void showTasksList() {
         mAddTaskButton.setVisibility(View.VISIBLE);
-
-        //mAddTaskButton.setVisibility(View.GONE);
-       // gridView.setVisibility(View.VISIBLE);
+        gridView.setVisibility(View.VISIBLE);
     }
 }

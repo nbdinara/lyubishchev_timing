@@ -28,18 +28,19 @@ public class Task implements Parcelable  {
     private int id;
     private String name;
     private String color;
-    @ColumnInfo(name = "week_id")
-    private String weekId;
     private long duration;
+    @ColumnInfo(name = "week_id")
+    private Integer weekId;
 
 
-    public Task (int id, String name, String color, String weekId, long duration){
+    public Task (int id, String name, String color,  long duration, Integer weekId){
         this.id = id;
         this.name = name;
         this.color = color;
         this.color = color;
-        this.weekId = weekId;
         this.duration = duration;
+        this.weekId = weekId;
+
     }
 
     @Ignore
@@ -48,12 +49,12 @@ public class Task implements Parcelable  {
     }
 
     @Ignore
-    public Task (String name, String color, String weekId, long duration){
+    public Task (String name, String color, long duration, Integer weekId){
         this.name = name;
         this.color = color;
         this.color = color;
-        this.weekId = weekId;
         this.duration = duration;
+        this.weekId = weekId;
     }
 
     @Ignore
@@ -61,8 +62,8 @@ public class Task implements Parcelable  {
         id = in.readInt();
         name = in.readString();
         color  = in.readString();
-        weekId = in.readString();
         duration = in.readLong();
+        weekId = in.readInt();
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -87,8 +88,8 @@ public class Task implements Parcelable  {
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(color);
-        parcel.writeString(weekId);
         parcel.writeLong(duration);
+        parcel.writeInt(weekId);
     }
 
     public int getId() {
@@ -99,11 +100,11 @@ public class Task implements Parcelable  {
         this.id = id;
     }
 
-    public String getWeekId() {
+    public Integer getWeekId() {
         return weekId;
     }
 
-    public void setWeekId(String week_id) {
+    public void setWeekId(Integer week_id) {
         this.weekId = week_id;
     }
 

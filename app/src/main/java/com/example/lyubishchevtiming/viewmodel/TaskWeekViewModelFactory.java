@@ -8,17 +8,23 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 public class TaskWeekViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final AppDatabase mDb;
-    private final String mWeekId;
+    private final int mWeekId;
 
 
-    public TaskWeekViewModelFactory(AppDatabase database, String weekId) {
+    public TaskWeekViewModelFactory(AppDatabase database, int weekId) {
         mDb = database;
         mWeekId = weekId;
     }
+
+
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
         return (T) new TaskWeekViewModel(mDb, mWeekId);
     }
+
+
+
+
 }

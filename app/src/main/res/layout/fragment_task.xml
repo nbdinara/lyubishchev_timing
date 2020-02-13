@@ -36,4 +36,18 @@
         android:layout_marginBottom="@dimen/margin_start"
         android:layout_marginEnd="@dimen/margin_start"
         android:layout_marginRight="@dimen/margin_start"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_delete_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        android:src="@drawable/ic_edit"
+        android:background="@color/colorAccent"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="@dimen/margin_start"
+        android:layout_marginEnd="@dimen/margin_start"
+        android:layout_marginRight="@dimen/margin_start"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

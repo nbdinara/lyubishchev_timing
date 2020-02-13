@@ -4,23 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
-import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
 
-public class TaskWeekViewModel extends ViewModel {
+public class TaskWeekByNameViewModel extends ViewModel {
 
     // Constant for logging
     private static final String TAG = TaskWeekViewModel.class.getSimpleName();
 
     private LiveData<Week> week;
 
-    public TaskWeekViewModel(AppDatabase database, int weekId) {
-        week = database.weekDao().loadWeekById(weekId);
+
+    public TaskWeekByNameViewModel(AppDatabase database, String taskName) {
+        week = database.weekDao().loadWeekByTaskName(taskName);
     }
 
-
-    public LiveData<Week> getWeek(){
+    public LiveData<Week> getWeekByTaskName(){
         return week;
     }
 }
-
