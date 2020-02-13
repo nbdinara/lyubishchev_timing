@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +23,12 @@ import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Date;
-
 import static android.content.ContentValues.TAG;
 
 
 public class TaskActivity extends AppCompatActivity {
 
+   // private Task intentTask;
     private Task mTask;
     private Week mWeek;
     private TextView mTaskNameTextView;
@@ -51,10 +49,12 @@ public class TaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra("task")) {
                 mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
+                loadWeekFromDatabase(mTask.getWeekId());
+                loadTaskFromDatabase(mTask.getId());
+
             }
         }
-        loadTaskFromDatabase(mTask.getId());
-        loadWeekFromDatabase(mTask.getWeekId());
+
 
         mTaskNameTextView = findViewById(R.id.task_name_summary);
         mHeader = findViewById(R.id.viewA);
@@ -71,20 +71,14 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
 
-        mStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Class destinationClass = TimeTrackingActivity.class;
-                Intent intent = new Intent(TaskActivity.this, destinationClass);
-                intent.putExtra("task", mTask);
-                startActivity(intent);
-            }
-        });
-
         setImageViewColor();
+
+
+
+    }
+
+    public void populateUI(){
         mTaskNameTextView.setText(mTask.getName());
-
-
 
     }
 
@@ -100,12 +94,22 @@ public class TaskActivity extends AppCompatActivity {
         viewModel.getTask().observe(this, new Observer<Task>() {
             @Override
             public void onChanged(@Nullable final Task task) {
-                viewModel.getTask().removeObserver(this);
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         if (task != null) {
                             mTask = task;
+                            runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    populateUI();
+
+                                    // Stuff that updates the UI
+
+                                }
+                            });
                             Log.d(TAG, "run: task" + mTask.getName() + " " + mTask.getWeekId());
                         }
                     }
@@ -114,7 +118,7 @@ public class TaskActivity extends AppCompatActivity {
         });
     }
 
-    private void loadWeekFromDatabase(String id) {
+    private void loadWeekFromDatabase(int id) {
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
@@ -125,7 +129,6 @@ public class TaskActivity extends AppCompatActivity {
         viewModel.getWeek().observe(this, new Observer<Week>() {
             @Override
             public void onChanged(@Nullable final Week week) {
-                viewModel.getWeek().removeObserver(this);
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

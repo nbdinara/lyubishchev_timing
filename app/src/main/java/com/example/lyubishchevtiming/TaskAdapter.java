@@ -32,6 +32,11 @@ public class TaskAdapter extends BaseAdapter {
         this.tasks = tasks;
     }
 
+    public void setTasks(List<Task> taskEntries) {
+        tasks = taskEntries;
+        notifyDataSetChanged();
+    }
+
     // 2
     @Override
     public int getCount() {
@@ -85,10 +90,12 @@ public class TaskAdapter extends BaseAdapter {
 
             setImageViewColor();
 
-
-            // 4
-            taskLetter.setText(Character.toString(task.getName().charAt(0)));
+                // 4
+            if (!task.getName().isEmpty()){
+                taskLetter.setText(Character.toString(task.getName().charAt(0)));
+            }
             taskName.setText(task.getName());
+
         }
         return convertView;
     }

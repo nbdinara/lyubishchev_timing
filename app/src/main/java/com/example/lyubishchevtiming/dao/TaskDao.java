@@ -2,6 +2,7 @@ package com.example.lyubishchevtiming.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -21,9 +22,12 @@ public interface TaskDao {
     LiveData<List<Task>>loadAllTasks();
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertTask(Task task);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateTask(Task task);
+
+    @Query("DELETE FROM task")
+    public void deleteTasks();
 }
