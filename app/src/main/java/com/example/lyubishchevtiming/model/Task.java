@@ -30,10 +30,10 @@ public class Task implements Parcelable  {
     private String color;
     private long duration;
     @ColumnInfo(name = "week_id")
-    private int weekId;
+    private Integer weekId;
 
 
-    public Task (int id, String name, String color,  long duration, int weekId){
+    public Task (int id, String name, String color,  long duration, Integer weekId){
         this.id = id;
         this.name = name;
         this.color = color;
@@ -49,7 +49,7 @@ public class Task implements Parcelable  {
     }
 
     @Ignore
-    public Task (String name, String color, long duration, int weekId){
+    public Task (String name, String color, long duration, Integer weekId){
         this.name = name;
         this.color = color;
         this.color = color;
@@ -100,11 +100,11 @@ public class Task implements Parcelable  {
         this.id = id;
     }
 
-    public int getWeekId() {
+    public Integer getWeekId() {
         return weekId;
     }
 
-    public void setWeekId(int week_id) {
+    public void setWeekId(Integer week_id) {
         this.weekId = week_id;
     }
 

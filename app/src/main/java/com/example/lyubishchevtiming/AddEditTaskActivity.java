@@ -390,7 +390,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
             public void run() {
                 mDb.weekDao().insertWeekDayCombination(toDbWeek);
                 Log.d(TAG, "addWeekToDatabase week: " + toDbWeek.getId());
-
             }
         });
 
