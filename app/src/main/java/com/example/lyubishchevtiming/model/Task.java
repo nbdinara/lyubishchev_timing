@@ -89,7 +89,13 @@ public class Task implements Parcelable  {
         parcel.writeString(name);
         parcel.writeString(color);
         parcel.writeLong(duration);
-        parcel.writeInt(weekId);
+        if (weekId == null) {
+            parcel.writeInt(0);
+        }
+        else {
+            parcel.writeInt(1);
+            parcel.writeInt(weekId);
+        }
     }
 
     public int getId() {
@@ -104,8 +110,8 @@ public class Task implements Parcelable  {
         return weekId;
     }
 
-    public void setWeekId(Integer week_id) {
-        this.weekId = week_id;
+    public void setWeekId(Integer weekId) {
+        this.weekId = weekId;
     }
 
     public long getDuration() {

@@ -14,7 +14,7 @@ public class TaskWeekViewModel extends ViewModel {
 
     private LiveData<Week> week;
 
-    public TaskWeekViewModel(AppDatabase database, int weekId) {
+    public TaskWeekViewModel(AppDatabase database, Integer weekId) {
         week = database.weekDao().loadWeekById(weekId);
     }
 

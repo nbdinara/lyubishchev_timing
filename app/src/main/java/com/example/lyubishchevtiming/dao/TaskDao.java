@@ -22,12 +22,12 @@ public interface TaskDao {
     LiveData<List<Task>>loadAllTasks();
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     void insertTask(Task task);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateTask(Task task);
 
     @Query("DELETE FROM task")
-    public void deleteTasks();
+    void deleteTasks();
 }

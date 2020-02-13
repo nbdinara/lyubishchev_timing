@@ -14,7 +14,7 @@ public class Week implements Parcelable {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    int id;
+    Integer id;
     @ColumnInfo (name = "task_name")
     private String taskName;
     private long mon;
@@ -26,7 +26,7 @@ public class Week implements Parcelable {
     private long sun;
 
 
-    public Week(int id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
+    public Week(Integer id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
                 long sun){
         this.id = id;
         this.taskName = taskName;
@@ -76,7 +76,13 @@ public class Week implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        if (id == null) {
+            parcel.writeInt(0);
+        }
+        else {
+            parcel.writeInt(1);
+            parcel.writeInt(id);
+        }
         parcel.writeString(taskName);
         parcel.writeLong(mon);
         parcel.writeLong(tue);
@@ -87,7 +93,7 @@ public class Week implements Parcelable {
         parcel.writeLong(sun);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -99,7 +105,7 @@ public class Week implements Parcelable {
         this.taskName = taskName;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
