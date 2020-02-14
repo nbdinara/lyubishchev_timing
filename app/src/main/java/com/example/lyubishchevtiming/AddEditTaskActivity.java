@@ -23,8 +23,7 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
-import com.example.lyubishchevtiming.viewmodel.TaskWeekByNameViewModel;
-import com.example.lyubishchevtiming.viewmodel.TaskWeekByNameViewModelFactory;
+import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +31,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
@@ -54,8 +57,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private CheckBox friCheckBox;
     private CheckBox satCheckBox;
     private CheckBox sunCheckBox;
-    Task toDbTask;
-    Week toDbWeek;
+    private Week weekLoaded;
 
 
 
@@ -64,7 +66,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_task);
         mDb = AppDatabase.getInstance(this);
-        deleteWeeks();
 
         mTaskNameEditText = findViewById(R.id.task_name_edit_text);
         monCheckBox = findViewById(R.id.mon_checkBox);
@@ -82,16 +83,16 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             isEdit = true;
+            loadWeekFromDatabase(String.valueOf(mTask.getWeekId()));
             fillFieldsFromIntent();
-            Log.d(TAG, "onCreate addTask if: " + isEdit);
-
         } else {
             mTask = new Task();
             mWeek = new Week();
             isEdit = false;
-            Log.d(TAG, "onCreate addTask: " + isEdit);
-
         }
+
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -109,19 +110,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //TODO save changes to database
+                //TODO save changes to database
                 if (isEdit){
-                    Log.d(TAG, "onCreate updated: " + isEdit);
-
                     getUpdatedDataFromFields();
                     updateTaskInDatabase();
                 } else {
-                    Log.d(TAG, "onCreate inserted: " + isEdit);
-
-                    getDataFromTheFields();
-                    addWeekToDatabase();
-                    loadWeekFromDatabaseByName(toDbTask.getName());
-                   // toDbTask.setWeekId(toDbWeek.getId());
+                    getDataFromFields();
                     addTaskToDatabase();
                 }
                 finish();
@@ -187,16 +181,15 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
     }
 
-    public void getDataFromTheFields(){
-        toDbTask = new Task();
-        toDbWeek = new Week();
-        toDbTask.setName(mTaskNameEditText.getText().toString());
-        toDbTask.setColor("blue");
+    public void getDataFromFields(){
+        mTask.setName(mTaskNameEditText.getText().toString());
+        mTask.setColor("blue");
         int hours = hoursNumberPicker.getValue();
         int minutes = minutesNumberPicker.getValue();
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         String dateInString = hours + ":" + minutes + ":" + "00";
         Date date = new Date();
+        mWeek = new Week();
         try {
             date = formatter.parse(dateInString);
             System.out.println(date);
@@ -204,45 +197,50 @@ public class AddEditTaskActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         long milliseconds = date.getTime();
-        toDbTask.setDuration(milliseconds);
+        mTask.setDuration(milliseconds);
 
+        Random rand = new Random();
+        int selected = rand.nextInt(100);
+
+        String weekId = String.valueOf(mTask.getId() + selected);
         if (monCheckBox.isChecked()) {
-            toDbWeek.setMon(milliseconds);
+            mWeek.setMon(milliseconds);
         } else {
-            toDbWeek.setMon(0);
+            mWeek.setMon(0);
         }
         if (tueCheckBox.isChecked()) {
-            toDbWeek.setTue(milliseconds);
+            mWeek.setTue(milliseconds);
         } else {
-            toDbWeek.setTue(0);
+            mWeek.setTue(0);
         }
         if (wedCheckBox.isChecked()) {
-            toDbWeek.setWed(milliseconds);
+            mWeek.setWed(milliseconds);
         } else {
-            toDbWeek.setWed(0);
+            mWeek.setWed(0);
         }
         if (thuCheckBox.isChecked()) {
-            toDbWeek.setThu(milliseconds);
+            mWeek.setThu(milliseconds);
         } else {
-            toDbWeek.setThu(0);
+            mWeek.setThu(0);
         }
         if (friCheckBox.isChecked()) {
-            toDbWeek.setFri(milliseconds);
+            mWeek.setFri(milliseconds);
         } else {
-            toDbWeek.setFri(0);
+            mWeek.setFri(0);
         }
         if (satCheckBox.isChecked()) {
-            toDbWeek.setSat(milliseconds);
+            mWeek.setSat(milliseconds);
         } else {
-            toDbWeek.setSat(0);
+            mWeek.setSat(0);
         }
         if (sunCheckBox.isChecked()) {
-            toDbWeek.setSun(milliseconds);
+            mWeek.setSun(milliseconds);
         } else {
-            toDbWeek.setSun(0);
+            mWeek.setSun(0);
         }
-        toDbWeek.setTaskName(toDbTask.getName());
 
+        mWeek.setId(weekId);
+        mTask.setWeekId(String.valueOf(mWeek.getId()));
     }
 
 
@@ -271,6 +269,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
+        String weekId = mTask.getId() + "";
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -317,8 +316,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
     }
 
 
-    private void loadWeekFromDatabase(int id) {
-        mWeek = new Week();
+    private Week loadWeekFromDatabase(String id) {
+        weekLoaded = new Week();
 
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
@@ -336,66 +335,35 @@ public class AddEditTaskActivity extends AppCompatActivity {
                     public void run() {
                         if (week != null) {
                             mWeek = week;
+                            weekLoaded = week;
                         }
                     }
                 });
             }
         });
+        return weekLoaded;
+
     }
 
-    private void loadWeekFromDatabaseByName(String taskName) {
-        TaskWeekByNameViewModelFactory factory = new TaskWeekByNameViewModelFactory(mDb, taskName);
-        // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
-        // for that use the factory created above AddTaskViewModel
-        final TaskWeekByNameViewModel viewModel
-                = ViewModelProviders.of(this, factory).get(TaskWeekByNameViewModel.class);
-
-        // COMPLETED (12) Observe the LiveData object in the ViewModel. Use it also when removing the observer
-        viewModel.getWeekByTaskName().observe(this, new Observer<Week>() {
-            @Override
-            public void onChanged(@Nullable final Week week) {
-                viewModel.getWeekByTaskName().removeObserver(this);
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (week != null) {
-                            toDbWeek = week;
-                            toDbTask.setWeekId(toDbWeek.getId());
-                        }
-                    }
-                });
-            }
-        });
-    }
     //                            mDb.recipeDao().updateRecipe(recipe);
 
     public void addTaskToDatabase(){
 
-        Log.d(TAG, "addWeekToDatabase: " + toDbTask.getWeekId());
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mDb.taskDao().insertTask(toDbTask);
-                Log.d(TAG, "addTaskToDatabase task: " + toDbTask.getId() + toDbTask.getName());
+                mDb.weekDao().insertWeekDayCombination(mWeek);
             }
         });
-
-
-    }
-
-    public void addWeekToDatabase(){
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mDb.weekDao().insertWeekDayCombination(toDbWeek);
-                Log.d(TAG, "addWeekToDatabase week: " + toDbWeek.getId());
+                mDb.taskDao().insertTask(mTask);
             }
         });
 
-
     }
-
 
     public void updateTaskInDatabase(){
 
@@ -413,16 +381,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void deleteWeeks() {
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.weekDao().deleteWeeks();
-            }
-        });
     }
 
     @Override

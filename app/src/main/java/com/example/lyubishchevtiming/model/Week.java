@@ -13,8 +13,8 @@ import androidx.room.PrimaryKey;
 public class Week implements Parcelable {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    int id;
+    @PrimaryKey(autoGenerate = false)
+    private String id;
     @ColumnInfo (name = "task_name")
     private String taskName;
     private long mon;
@@ -26,9 +26,22 @@ public class Week implements Parcelable {
     private long sun;
 
 
-    public Week(int id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
+    public Week(String id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
                 long sun){
         this.id = id;
+        this.taskName = taskName;
+        this.mon = mon;
+        this.tue = tue;
+        this.wed = wed;
+        this.thu = thu;
+        this.fri = fri;
+        this.sat = sat;
+        this.sun = sun;
+    }
+
+    @Ignore
+    public Week(String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
+                long sun){
         this.taskName = taskName;
         this.mon = mon;
         this.tue = tue;
@@ -46,7 +59,7 @@ public class Week implements Parcelable {
 
     @Ignore
     protected Week(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         taskName = in.readString();
         mon = in.readLong();
         tue = in.readLong();
@@ -76,7 +89,7 @@ public class Week implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(id);
         parcel.writeString(taskName);
         parcel.writeLong(mon);
         parcel.writeLong(tue);
@@ -87,7 +100,7 @@ public class Week implements Parcelable {
         parcel.writeLong(sun);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -99,7 +112,7 @@ public class Week implements Parcelable {
         this.taskName = taskName;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

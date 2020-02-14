@@ -8,10 +8,10 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 public class TaskWeekViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final AppDatabase mDb;
-    private final int mWeekId;
+    private final String mWeekId;
 
 
-    public TaskWeekViewModelFactory(AppDatabase database, int weekId) {
+    public TaskWeekViewModelFactory(AppDatabase database, String weekId) {
         mDb = database;
         mWeekId = weekId;
     }

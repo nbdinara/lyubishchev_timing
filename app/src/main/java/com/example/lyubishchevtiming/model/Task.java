@@ -30,10 +30,10 @@ public class Task implements Parcelable  {
     private String color;
     private long duration;
     @ColumnInfo(name = "week_id")
-    private Integer weekId;
+    private String weekId;
 
 
-    public Task (int id, String name, String color,  long duration, Integer weekId){
+    public Task (int id, String name, String color,  long duration, String weekId){
         this.id = id;
         this.name = name;
         this.color = color;
@@ -49,7 +49,7 @@ public class Task implements Parcelable  {
     }
 
     @Ignore
-    public Task (String name, String color, long duration, Integer weekId){
+    public Task (String name, String color, long duration, String weekId){
         this.name = name;
         this.color = color;
         this.color = color;
@@ -63,7 +63,7 @@ public class Task implements Parcelable  {
         name = in.readString();
         color  = in.readString();
         duration = in.readLong();
-        weekId = in.readInt();
+        weekId = in.readString();
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -89,7 +89,7 @@ public class Task implements Parcelable  {
         parcel.writeString(name);
         parcel.writeString(color);
         parcel.writeLong(duration);
-        parcel.writeInt(weekId);
+        parcel.writeString(weekId);
     }
 
     public int getId() {
@@ -100,12 +100,12 @@ public class Task implements Parcelable  {
         this.id = id;
     }
 
-    public Integer getWeekId() {
+    public String getWeekId() {
         return weekId;
     }
 
-    public void setWeekId(Integer week_id) {
-        this.weekId = week_id;
+    public void setWeekId(String weekId) {
+        this.weekId = weekId;
     }
 
     public long getDuration() {

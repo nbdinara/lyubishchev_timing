@@ -51,7 +51,6 @@ public class TaskActivity extends AppCompatActivity {
                 mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
                 loadWeekFromDatabase(mTask.getWeekId());
                 loadTaskFromDatabase(mTask.getId());
-
             }
         }
 
@@ -118,7 +117,7 @@ public class TaskActivity extends AppCompatActivity {
         });
     }
 
-    private void loadWeekFromDatabase(int id) {
+    private void loadWeekFromDatabase(String id) {
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
