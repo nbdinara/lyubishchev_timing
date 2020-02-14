@@ -130,7 +130,8 @@ public class TaskActivity extends AppCompatActivity {
         Log.d(TAG, "populateUI: " + timeFromLogs);
 
         setImageViewColor();
-
+        setWeekDayIcons();
+        calculateLeftTime();
     }
 
     public String convertTimeAmountToString(long timeAmount){
@@ -325,7 +326,7 @@ public class TaskActivity extends AppCompatActivity {
                                     String timeFromLogsString = convertTimeAmountToString(timeFromLogs);
                                     Log.d(TAG, "populateUI: " + timeFromLogsString);
                                     mDoneTextView.setText(getResources().getString(R.string.done, timeFromLogsString));
-                                    setWeekDayIcons();
+
                                     calculateLeftTime();
 
 
@@ -341,10 +342,8 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private void calculateLeftTime(){
-
         if (todayDesiredAmountOfTime == 0){
-            String defaultLeft = "day off";
-            mLeftTextView.setText(getResources().getString(R.string.left, defaultLeft));
+            mLeftTextView.setText(getResources().getString(R.string.left, getResources().getString(R.string.default_left)));
         } else {
             String timeFromLogsString = convertTimeAmountToString(timeFromLogs);
             String goal = convertTimeAmountToStringWithoutUTF(mTask.getDuration());
@@ -387,6 +386,7 @@ public class TaskActivity extends AppCompatActivity {
 
             mLeftTextView.setText(getResources().getString(R.string.left, leftString));
         }
+
     }
 
 

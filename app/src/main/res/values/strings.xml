@@ -7,10 +7,11 @@
     <string name="add">Add</string>
 
     <!--activity_task.xml-->
-    <string name="goal">Goal: </string>
-    <string name="done">Done: </string>
-    <string name="left">Left: </string>
+    <string name="goal">Goal: %1$s</string>
+    <string name="done">Done: %1$s</string>
+    <string name="left">Left: %1$s</string>
     <string name="start">Start</string>
+    <string name="default_left">day off</string>
 
     <!--activity_add_edit_task.xml-->
     <string name="task_name_label">Task name: </string>
