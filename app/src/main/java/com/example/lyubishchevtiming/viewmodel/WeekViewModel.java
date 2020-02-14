@@ -12,8 +12,8 @@ import com.example.lyubishchevtiming.model.Week;
 
 import java.util.List;
 
-public class WeekViewModel extends AndroidViewModel {
-
+public class WeekViewModel  {
+/*
     // Constant for logging
     private static final String TAG = MainViewModel.class.getSimpleName();
 
@@ -28,5 +28,5 @@ public class WeekViewModel extends AndroidViewModel {
 
     public LiveData<List<Week>> getWeeks(){
         return weeks;
-    }
+    }*/
 }

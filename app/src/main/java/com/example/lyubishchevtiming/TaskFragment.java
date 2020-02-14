@@ -87,7 +87,7 @@ public class TaskFragment extends Fragment {
                 if (!mTasks.isEmpty()) {
                     tasks = mTasks;
                     for (int i =0; i < tasks.size(); i++) {
-                        Log.d(TAG, "onChanged: listId " +i + " n: " + tasks.get(i).getName() + " t_id: " + tasks.get(i).getId() + " w:id " + tasks.get(i).getWeekId());
+                       // Log.d(TAG, "onChanged: listId " +i + " n: " + tasks.get(i).getName() + " t_id: " + tasks.get(i).getId() + " w:id " + tasks.get(i).getWeekId());
                     }
                     taskAdapter = new TaskAdapter(getActivity(), tasks);
                     gridView.setAdapter(taskAdapter);

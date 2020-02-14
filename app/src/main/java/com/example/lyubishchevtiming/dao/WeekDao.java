@@ -12,9 +12,9 @@ import com.example.lyubishchevtiming.model.Week;
 
 import java.util.List;
 
-@Dao
 public interface WeekDao {
 
+    /*
     @Query("SELECT * FROM week")
     LiveData<List<Week>> loadAllWeekDaysCombinations();
 
@@ -31,5 +31,5 @@ public interface WeekDao {
     void updateWeek(Week week);
 
     @Query("DELETE FROM week")
-    void deleteWeeks();
+    void deleteWeeks();*/
 }

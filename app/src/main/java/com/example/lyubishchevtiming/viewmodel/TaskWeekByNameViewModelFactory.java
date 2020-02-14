@@ -7,7 +7,7 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 
 public class TaskWeekByNameViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-        private final AppDatabase mDb;
+  /*      private final AppDatabase mDb;
         private final String mTaskName;
 
 
@@ -23,7 +23,7 @@ public class TaskWeekByNameViewModelFactory extends ViewModelProvider.NewInstanc
             //noinspection unchecked
             return (T) new TaskWeekByNameViewModel(mDb, mTaskName);
         }
-
+*/
 
 
     }

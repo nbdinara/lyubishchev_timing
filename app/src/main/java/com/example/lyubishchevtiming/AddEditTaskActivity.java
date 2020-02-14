@@ -81,7 +81,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             isEdit = true;
-            loadWeekFromDatabase(Integer.valueOf(mTask.getWeekId()));
+            loadWeekFromDatabase(Integer.valueOf(mTask.));
 
             fillFieldsFromIntent();
         } else {

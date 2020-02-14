@@ -13,6 +13,7 @@ import com.example.lyubishchevtiming.model.Week;
 import java.util.List;
 
 public interface TaskWithWeekDao  {
+    /*
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertWeek(Week week);
 
@@ -21,6 +22,6 @@ public interface TaskWithWeekDao  {
 
     @Transaction
     @Query("SELECT * FROM week")
-    public List<TaskWithWeek> getWeekAndTask();
+    public List<TaskWithWeek> getWeekAndTask();*/
 
 }

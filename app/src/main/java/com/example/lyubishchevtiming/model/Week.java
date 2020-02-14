@@ -9,14 +9,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "week")
 public class Week implements Parcelable {
 
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
-    Integer id;
-    @ColumnInfo (name = "task_name")
-    private String taskName;
     private long mon;
     private long tue;
     private long wed;
@@ -26,9 +20,9 @@ public class Week implements Parcelable {
     private long sun;
 
 
-    public Week(String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
+    public Week(long mon, long tue, long wed, long thu, long fri, long sat,
                 long sun){
-        this.taskName = taskName;
+
         this.mon = mon;
         this.tue = tue;
         this.wed = wed;
@@ -38,19 +32,6 @@ public class Week implements Parcelable {
         this.sun = sun;
     }
 
-    @Ignore
-    public Week(Integer id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
-                long sun){
-        this.id = id;
-        this.taskName = taskName;
-        this.mon = mon;
-        this.tue = tue;
-        this.wed = wed;
-        this.thu = thu;
-        this.fri = fri;
-        this.sat = sat;
-        this.sun = sun;
-    }
 
     @Ignore
     public Week(){
@@ -59,8 +40,7 @@ public class Week implements Parcelable {
 
     @Ignore
     protected Week(Parcel in) {
-        id = in.readInt();
-        taskName = in.readString();
+
         mon = in.readLong();
         tue = in.readLong();
         wed  = in.readLong();
@@ -89,14 +69,7 @@ public class Week implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeInt(0);
-        }
-        else {
-            parcel.writeInt(1);
-            parcel.writeInt(id);
-        }
-        parcel.writeString(taskName);
+
         parcel.writeLong(mon);
         parcel.writeLong(tue);
         parcel.writeLong(wed);
@@ -106,21 +79,7 @@ public class Week implements Parcelable {
         parcel.writeLong(sun);
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public long getMon() {
         return mon;

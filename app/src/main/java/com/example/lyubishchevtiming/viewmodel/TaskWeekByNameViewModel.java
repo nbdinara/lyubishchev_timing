@@ -7,7 +7,7 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Week;
 
 public class TaskWeekByNameViewModel extends ViewModel {
-
+/*
     // Constant for logging
     private static final String TAG = TaskWeekViewModel.class.getSimpleName();
 
@@ -20,5 +20,5 @@ public class TaskWeekByNameViewModel extends ViewModel {
 
     public LiveData<Week> getWeekByTaskName(){
         return week;
-    }
+    }*/
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.lyubishchevtiming.database.AppDatabase;
 
 public class TaskWeekViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-
+/*
     private final AppDatabase mDb;
     private final Integer mWeekId;
 
@@ -24,7 +24,7 @@ public class TaskWeekViewModelFactory extends ViewModelProvider.NewInstanceFacto
         return (T) new TaskWeekViewModel(mDb, mWeekId);
     }
 
-
+*/
 
 
 }
