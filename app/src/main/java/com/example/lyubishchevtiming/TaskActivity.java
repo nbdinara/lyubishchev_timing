@@ -60,10 +60,21 @@ public class TaskActivity extends AppCompatActivity {
         mAddEditTaskButton = findViewById(R.id.fab_edit_add_task);
         mStartButton = findViewById(R.id.start_button);
 
+
         mAddEditTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Class destinationClass = AddEditTaskActivity.class;
+                Intent intent = new Intent(TaskActivity.this, destinationClass);
+                intent.putExtra("task", mTask);
+                startActivity(intent);
+            }
+        });
+
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Class destinationClass = TimeTrackingActivity.class;
                 Intent intent = new Intent(TaskActivity.this, destinationClass);
                 intent.putExtra("task", mTask);
                 startActivity(intent);

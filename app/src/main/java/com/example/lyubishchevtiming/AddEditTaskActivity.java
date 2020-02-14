@@ -183,7 +183,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     public void getDataFromFields(){
         mTask.setName(mTaskNameEditText.getText().toString());
-        mTask.setColor("blue");
+        mTask.setColor("green");
         int hours = hoursNumberPicker.getValue();
         int minutes = minutesNumberPicker.getValue();
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
