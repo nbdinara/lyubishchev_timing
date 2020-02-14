@@ -50,6 +50,11 @@ public class Log {
         this.taskId = taskId;
     }
 
+    @Ignore
+    public Log(){
+
+    }
+
     public int getId() {
         return id;
     }

@@ -26,7 +26,6 @@ import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
@@ -48,6 +47,8 @@ public class TaskActivity extends AppCompatActivity {
     private ImageView mFriImageView;
     private ImageView mSatImageView;
     private ImageView mSunImageView;
+    private TextView mDoneTextView;
+    private long todayDesiredAmountOfTime;
 
 
     @Override
@@ -69,6 +70,7 @@ public class TaskActivity extends AppCompatActivity {
 
 
         mTaskNameTextView = findViewById(R.id.task_name_summary);
+        mDoneTextView = findViewById(R.id.done);
         mHeader = findViewById(R.id.viewA);
         mAddEditTaskButton = findViewById(R.id.fab_edit_add_task);
         mStartButton = findViewById(R.id.start_button);
@@ -97,13 +99,10 @@ public class TaskActivity extends AppCompatActivity {
                 Class destinationClass = TimeTrackingActivity.class;
                 Intent intent = new Intent(TaskActivity.this, destinationClass);
                 intent.putExtra("task", mTask);
+                intent.putExtra("todayDesiredTime", todayDesiredAmountOfTime);
                 startActivity(intent);
             }
         });
-
-
-
-
 
     }
 
@@ -115,6 +114,7 @@ public class TaskActivity extends AppCompatActivity {
 
 
     public void setWeekDayIcons(){
+        todayDesiredAmountOfTime = 0;
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -124,6 +124,7 @@ public class TaskActivity extends AppCompatActivity {
             mMonImageView.setImageResource(R.mipmap.mon_disabled);
         } else if (mWeek.getMon() !=0 && day == Calendar.MONDAY){
             mMonImageView.setImageResource(R.mipmap.mon_today);
+            todayDesiredAmountOfTime = mWeek.getMon();
         } else if (mWeek.getMon()!=0){
             mMonImageView.setImageResource(R.mipmap.mon_enabled);
         }
@@ -132,6 +133,7 @@ public class TaskActivity extends AppCompatActivity {
             mTueImageView.setImageResource(R.mipmap.tue_disabled);
         } else if (mWeek.getTue() !=0 && day == Calendar.TUESDAY){
             mTueImageView.setImageResource(R.mipmap.tue_today);
+            todayDesiredAmountOfTime = mWeek.getTue();
         } else if (mWeek.getTue()!=0){
             mTueImageView.setImageResource(R.mipmap.tue_enabled);
         }
@@ -140,6 +142,8 @@ public class TaskActivity extends AppCompatActivity {
             mWedImageView.setImageResource(R.mipmap.wed_disabled);
         } else if (mWeek.getWed() !=0 && day == Calendar.WEDNESDAY){
             mWedImageView.setImageResource(R.mipmap.wed_today);
+            todayDesiredAmountOfTime = mWeek.getWed();
+
         } else if (mWeek.getWed()!=0){
             mWedImageView.setImageResource(R.mipmap.wed_enabled);
         }
@@ -148,6 +152,7 @@ public class TaskActivity extends AppCompatActivity {
             mThuImageView.setImageResource(R.mipmap.thu_disabled);
         } else if (mWeek.getThu() !=0 && day == Calendar.THURSDAY){
             mThuImageView.setImageResource(R.mipmap.thu_today);
+            todayDesiredAmountOfTime = mWeek.getThu();
         } else if (mWeek.getThu()!=0){
             mThuImageView.setImageResource(R.mipmap.thu_enabled);
         }
@@ -156,6 +161,8 @@ public class TaskActivity extends AppCompatActivity {
             mFriImageView.setImageResource(R.mipmap.fri_disabled);
         } else if (mWeek.getFri() !=0 && day == Calendar.FRIDAY){
             mFriImageView.setImageResource(R.mipmap.fri_today);
+            todayDesiredAmountOfTime = mWeek.getFri();
+
           /*
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
             mFriImageView.setLayoutParams(layoutParams);*/
@@ -167,6 +174,7 @@ public class TaskActivity extends AppCompatActivity {
             mSatImageView.setImageResource(R.mipmap.sat_disabled);
         } else if (mWeek.getSat() !=0 && day == Calendar.SATURDAY){
             mSatImageView.setImageResource(R.mipmap.sat_today);
+            todayDesiredAmountOfTime = mWeek.getSat();
         } else if (mWeek.getSat()!=0){
             mSatImageView.setImageResource(R.mipmap.sat_enabled);
         }
@@ -175,6 +183,7 @@ public class TaskActivity extends AppCompatActivity {
             mSunImageView.setImageResource(R.mipmap.sun_disabled);
         } else if (mWeek.getSun() !=0 && day == Calendar.SUNDAY){
             mSunImageView.setImageResource(R.mipmap.sun_today);
+            todayDesiredAmountOfTime = mWeek.getSun();
         } else if (mWeek.getSun()!=0){
             mSunImageView.setImageResource(R.mipmap.sun_enabled);
         }
