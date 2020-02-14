@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
@@ -81,10 +82,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             isEdit = true;
-            loadWeekFromDatabase(mTask.getWeekId());
+            loadWeekFromDatabase(Integer.valueOf(mTask.getWeekId()));
 
             fillFieldsFromIntent();
         } else {
+            mWeek = new Week();
             mTask = new Task();
             isEdit = false;
         }
@@ -197,7 +199,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
-        Integer weekId = mTask.getId();
+        Random rand = new Random();
+        int selected = rand.nextInt(100);
+        Integer weekId = new Integer( mTask.getId() + selected);
+
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -235,7 +240,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         mWeek.setId(weekId);
-        mTask.setWeekId(mWeek.getId());
+        mTask.setWeekId(new Integer(mWeek.getId()));
     }
 
 
@@ -264,7 +269,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
-        String weekId = mTask.getId() + "";
+
+
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
