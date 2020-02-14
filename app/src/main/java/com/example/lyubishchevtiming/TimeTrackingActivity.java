@@ -78,7 +78,6 @@ public class TimeTrackingActivity extends AppCompatActivity {
         timeAmount = SystemClock.elapsedRealtime() - mChronometer.getBase();
         String mTaskName = mTask.getName();
         isRunning = false;
-        //TODO save time to database
         getLog();
         saveLogToDb();
         Intent intent = new Intent(TimeTrackingActivity.this, TimeTrackingSummaryActivity.class);

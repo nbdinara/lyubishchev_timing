@@ -62,4 +62,9 @@ public class TimeTrackingSummaryActivity extends AppCompatActivity {
         String dateFormatted = formatter.format(date);
         return dateFormatted;
     }
+
+    @Override
+    public void onBackPressed() {
+        //do nothing
+    }
 }
