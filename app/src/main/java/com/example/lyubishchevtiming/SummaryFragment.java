@@ -1,19 +1,12 @@
 package com.example.lyubishchevtiming;
-
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -25,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Summary;
-import com.example.lyubishchevtiming.viewmodel.LogByDateForTaskViewModel;
-import com.example.lyubishchevtiming.viewmodel.LogByDateForTaskViewModelFactory;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModelFactory;
 import com.github.mikephil.charting.charts.PieChart;
@@ -52,16 +43,12 @@ public class SummaryFragment extends Fragment {
 
     private List<Summary> mSummaries;
     private PieChart pieChart;
-    private float[] yData = {25f, 27f, 55f};
-    private String[] xData = {"Max", "Dinara", "Aman"};
+  //  private float[] yData = {25f, 27f, 55f};
+  //  private String[] xData = {"Max", "Dinara", "Aman"};
     private TextView mTimePeriod;
     private String[] timePeriods = {"today", "last 7 days", "last 30 days", "last 365 days"};
     private AppDatabase mDb;
 
-
-    public SummaryFragment(){
-        // empty constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,30 +56,24 @@ public class SummaryFragment extends Fragment {
 
         mDb = AppDatabase.getInstance(getActivity());
         mTimePeriod = rootView.findViewById(R.id.time_period);
-
         pieChart = rootView.findViewById(R.id.pie_chart);
-
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.tasks_list_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
         loadSummaryData(mTimePeriod.getText().toString());
-
-        mSummaries = new ArrayList<>();
-
-        mSummaries.add(new Summary(1, "name", 10, 1, "blue"));
-        mSummaries.add(new Summary(2, "name2", 10, 5, "blue"));
-        mSummaries.add(new Summary(3, "name3", 10, 10, "blue"));
-
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.tasks_list_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         if (mSummaries!=null) {
             mAdapter = new SummaryAdapter(mSummaries, getActivity());
         }
         recyclerView.setAdapter(mAdapter);
+
+       /* mSummaries = new ArrayList<>();
+
+        mSummaries.add(new Summary(1, "name", 10, 1, "blue"));
+        mSummaries.add(new Summary(2, "name2", 10, 5, "blue"));
+        mSummaries.add(new Summary(3, "name3", 10, 10, "blue"));*/
+
+
         // specify an adapter (see also next example)
 
 
@@ -123,30 +104,9 @@ public class SummaryFragment extends Fragment {
 
             }
         });
-
-
-
-        //mSummaries = new ArrayList<>();
-
-
-
         return rootView;
     }
 
-
-    public void adjustPieChart(){
-        //pieChart.setDescription(R.string.add);
-        pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(50f);
-        pieChart.setCenterText("My pie chart");
-        pieChart.setCenterTextSize(24);
-        addData(pieChart);
-
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        dateFormat.format(date); //2016/11/16 12:08:43
-    }
 
     public void loadSummaryData(String timePeriod){
 
@@ -158,24 +118,25 @@ public class SummaryFragment extends Fragment {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date start = calendar.getTime();
-        Date end =  calendar.getTime();
+        Date end = calendar.getTime();
+        Date start =  calendar.getTime();
 
         if (timePeriod.equals("today")) {
             calendar.add(Calendar.DAY_OF_MONTH, -1);
-            end = calendar.getTime();
+            start = calendar.getTime();
 
         } else if (timePeriod.equals("last 7 days")){
             calendar.add(Calendar.DAY_OF_MONTH, -7);
-            end = calendar.getTime();
+            start = calendar.getTime();
         }  else if (timePeriod.equals("last 30 days")){
             calendar.add(Calendar.DAY_OF_MONTH, -30);
-            end = calendar.getTime();
+            start = calendar.getTime();
         } else if (timePeriod.equals("last 365 days")){
             calendar.add(Calendar.DAY_OF_MONTH, -365);
-            end = calendar.getTime();
+            start = calendar.getTime();
         }
 
+        Log.d(TAG, "loadSummaryData: start " + start + " end " + end);
         SummaryViewModelFactory factory = new SummaryViewModelFactory(mDb, start, end);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
@@ -192,12 +153,14 @@ public class SummaryFragment extends Fragment {
                         if (summaries != null) {
                             mSummaries = summaries;
                             Log.d(TAG, "loadSummaryData: " + mSummaries.size());
-                            mAdapter = new SummaryAdapter(mSummaries, getActivity());
-                            recyclerView.setAdapter(mAdapter);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    mAdapter = new SummaryAdapter(mSummaries, getActivity());
+                                    recyclerView.setAdapter(mAdapter);
                                     adjustPieChart();
+                                    addData();
+
                                 }
                             });
 
@@ -211,9 +174,16 @@ public class SummaryFragment extends Fragment {
     }
 
 
+    public void adjustPieChart(){
+        //pieChart.setDescription(R.string.add);
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(50f);
+        pieChart.setCenterText("My pie chart");
+        pieChart.setCenterTextSize(24);
+    }
 
 
-        public void addData(PieChart chart){
+    public void addData(){
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 
@@ -232,4 +202,5 @@ public class SummaryFragment extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate(); // refresh
     }
+
 }
