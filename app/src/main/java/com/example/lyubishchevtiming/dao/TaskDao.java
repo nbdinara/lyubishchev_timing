@@ -6,9 +6,12 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
+import com.example.lyubishchevtiming.model.Week;
 
 import java.util.List;
 
@@ -19,8 +22,7 @@ public interface TaskDao {
     LiveData<Task> loadTaskById(int id);
 
     @Query("SELECT * FROM task")
-    LiveData<List<Task>>loadAllTasks();
-
+    LiveData<List<Task>> loadAllTasks();
 
     @Insert
     void insertTask(Task task);
@@ -30,4 +32,5 @@ public interface TaskDao {
 
     @Query("DELETE FROM task")
     void deleteTasks();
+
 }

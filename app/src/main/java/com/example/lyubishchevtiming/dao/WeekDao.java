@@ -24,8 +24,8 @@ public interface WeekDao {
     @Query("SELECT * FROM week WHERE task_name = :taskName")
     LiveData<Week> loadWeekByTaskName(String taskName);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWeekDayCombination(Week week);
+    @Insert
+    void insertWeek(Week week);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateWeek(Week week);

@@ -26,6 +26,19 @@ public class Week implements Parcelable {
     private long sun;
 
 
+    public Week(String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
+                long sun){
+        this.taskName = taskName;
+        this.mon = mon;
+        this.tue = tue;
+        this.wed = wed;
+        this.thu = thu;
+        this.fri = fri;
+        this.sat = sat;
+        this.sun = sun;
+    }
+
+    @Ignore
     public Week(Integer id, String taskName, long mon, long tue, long wed, long thu, long fri, long sat,
                 long sun){
         this.id = id;

@@ -23,18 +23,17 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
-import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
+import com.example.lyubishchevtiming.viewmodel.WeekViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
@@ -57,6 +56,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private CheckBox satCheckBox;
     private CheckBox sunCheckBox;
     private Week weekLoaded;
+    List<Week> mWeeks;
 
 
     @Override
@@ -81,11 +81,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             isEdit = true;
-            loadWeekFromDatabase(mTask.getWeekId());
+            loadWeekFromDatabase(Integer.valueOf(mTask.getWeekId()));
 
             fillFieldsFromIntent();
         } else {
             mTask = new Task();
+            mWeek = new Week();
             isEdit = false;
         }
 
@@ -114,7 +115,17 @@ public class AddEditTaskActivity extends AppCompatActivity {
                     updateTaskInDatabase();
                 } else {
                     getDataFromFields();
-                    addTaskToDatabase();
+                    addTaskAndWeekToDatabase();
+                    Week test = loadWeekFromDatabase(mWeek.getId());
+                    Log.d(TAG, "onClick: week id" + mWeek.getId());
+
+                    Log.d(TAG, "onClick: " + test.getId()  + test.getFri() +test.getMon());
+                    List<Week> testWeeks = loadAllWeeks();
+                    for (int i =0; i< testWeeks.size(); i++){
+                        Log.d(TAG, "onClick: weeks: i " + i + " id " +  testWeeks.get(i).getId() + testWeeks.get(i).getMon() + testWeeks.get(i).getFri());
+
+                    }
+
                 }
                 finish();
 
@@ -187,7 +198,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         String dateInString = hours + ":" + minutes + ":" + "00";
         Date date = new Date();
-        mWeek = new Week();
         try {
             date = formatter.parse(dateInString);
             System.out.println(date);
@@ -197,7 +207,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
-        Integer weekId = mTask.getId();
+        Random rand = new Random();
+        int selected = rand.nextInt(100);
+        Integer weekId = new Integer( mTask.getId() + selected);
+        Log.d(TAG, "getDataFromFields: weekid " + weekId);
+
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -235,7 +249,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         mWeek.setId(weekId);
-        mTask.setWeekId(mWeek.getId());
+        Log.d(TAG, "getDataFromFields: week id inside week" + mWeek.getId());
+        mTask.setWeekId(new Integer(mWeek.getId()));
+
+        Log.d(TAG, "getDataFromFields: week id inside task" + mTask.getWeekId());
+
+
     }
 
 
@@ -264,7 +283,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
-        String weekId = mTask.getId() + "";
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -311,8 +329,24 @@ public class AddEditTaskActivity extends AppCompatActivity {
     }
 
 
+    private List<Week> loadAllWeeks(){
+         mWeeks = null;
+        WeekViewModel viewModel = ViewModelProviders.of(this).get(WeekViewModel.class);
+        viewModel.getWeeks().observe(this, new Observer<List<Week>>() {
+            @Override
+            public void onChanged(@Nullable List<Week> weeks) {
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
+                if (weeks.size() != 0) {
+                    mWeeks = weeks;
+                }
+            }
+        });
+        return mWeeks;
+    }
+
     private Week loadWeekFromDatabase(Integer id) {
         weekLoaded = new Week();
+
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
@@ -330,6 +364,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
                         if (week != null) {
                             mWeek = week;
                             weekLoaded = week;
+                            Log.d(TAG, "run: idddd" + week.getId());
                         }
                     }
                 });
@@ -341,14 +376,16 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     //                            mDb.recipeDao().updateRecipe(recipe);
 
-    public void addTaskToDatabase(){
+    public void addTaskAndWeekToDatabase(){
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mDb.weekDao().insertWeekDayCombination(mWeek);
+                mDb.weekDao().insertWeek(mWeek);
             }
         });
+        Log.d(TAG, "addTaskAndWeekToDatabase: mWeek id " + mWeek.getId() +  " friday: " + mWeek.getFri() + " monday " + mWeek.getMon() +
+                " task_name " + mWeek.getTaskName());
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -356,6 +393,9 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 mDb.taskDao().insertTask(mTask);
             }
         });
+
+        Log.d(TAG, "addTaskAndWeekToDatabase: mTask id " + mTask.getId() +  " name: " + mTask.getName() + " week_id " + mTask.getWeekId() );
+
 
     }
 

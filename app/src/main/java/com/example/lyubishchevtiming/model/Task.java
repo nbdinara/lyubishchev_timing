@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -19,6 +20,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 entity = Week.class,
                 parentColumns = "id",
                 childColumns = "week_id",
+                onUpdate = CASCADE,
                 onDelete = CASCADE))
 
 public class Task implements Parcelable  {
@@ -31,6 +33,10 @@ public class Task implements Parcelable  {
     private long duration;
     @ColumnInfo(name = "week_id")
     private Integer weekId;
+
+    @Embedded (prefix = "week")
+    Week week;
+
 
 
     public Task (int id, String name, String color,  long duration, Integer weekId){
