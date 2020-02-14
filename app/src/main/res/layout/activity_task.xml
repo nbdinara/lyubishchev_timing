@@ -86,7 +86,7 @@
                     android:layout_width="@dimen/weekday_icon_size"
                     android:layout_height="@dimen/weekday_icon_size"
                     tools:src="@mipmap/fri_enabled"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/sat_icon"
