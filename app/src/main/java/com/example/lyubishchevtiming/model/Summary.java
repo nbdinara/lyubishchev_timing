@@ -12,9 +12,9 @@ public class Summary {
     private int taskId;
     @ColumnInfo(name = "name")
     private String taskName;
-    @ColumnInfo(name = "COUNT(l.desired_time_amount)")
+    @ColumnInfo(name = "desired_time_amount")
     private long desiredTimeAmount;
-    @ColumnInfo(name = "COUNT(l.today_time_amount)")
+    @ColumnInfo(name = "today_time_amount")
     private long actualTimeAmount;
     @ColumnInfo(name = "color")
     private String taskColor;

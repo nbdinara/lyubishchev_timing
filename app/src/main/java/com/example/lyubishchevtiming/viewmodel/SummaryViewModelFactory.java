@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SummaryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

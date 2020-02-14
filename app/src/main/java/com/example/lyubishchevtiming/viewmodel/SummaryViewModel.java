@@ -7,7 +7,7 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Summary;
 import com.example.lyubishchevtiming.model.Task;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class SummaryViewModel extends ViewModel {

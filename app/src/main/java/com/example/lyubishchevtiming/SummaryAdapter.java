@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lyubishchevtiming.model.Summary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
 
-    private ArrayList<Summary> summaryList;
+    private List<Summary> summaryList;
     private Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -35,7 +36,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
     }
 
 
-    public SummaryAdapter(ArrayList<Summary> summaryList, Context context) {
+    public SummaryAdapter(List<Summary> summaryList, Context context) {
         this.summaryList = summaryList;
         mContext = context;
     }

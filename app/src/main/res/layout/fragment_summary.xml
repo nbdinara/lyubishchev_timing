@@ -10,7 +10,18 @@
     android:layout_marginLeft="@dimen/margin_start"
     android:layout_marginRight="@dimen/margin_start"
     android:layout_marginEnd="@dimen/margin_start"
+    android:layout_marginTop="@dimen/margin_start"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/time_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_start"
+        android:layout_marginStart="@dimen/margin_start"
+        android:text="@string/today"
+        android:textColor="@color/colorAccent"
+        android:clickable="true"/>
 
     <com.github.mikephil.charting.charts.PieChart
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

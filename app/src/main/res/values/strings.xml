@@ -35,4 +35,8 @@
     <!--activity_time_tracking_summary.xml-->
     <string name="good_job">Good job!</string>
     <string name="continue_button">Continue</string>
+
+    <!--fragment_summary-->
+    <string name="today">today</string>
+
 </resources>
