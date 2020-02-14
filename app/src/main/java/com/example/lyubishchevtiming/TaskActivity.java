@@ -117,7 +117,7 @@ public class TaskActivity extends AppCompatActivity {
         });
     }
 
-    private void loadWeekFromDatabase(Integer id) {
+    private void loadWeekFromDatabase(String id) {
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel

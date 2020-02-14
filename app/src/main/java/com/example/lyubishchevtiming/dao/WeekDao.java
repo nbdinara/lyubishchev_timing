@@ -19,7 +19,7 @@ public interface WeekDao {
     LiveData<List<Week>> loadAllWeekDaysCombinations();
 
     @Query("SELECT * FROM week WHERE id = :id")
-    LiveData<Week> loadWeekById(Integer id);
+    LiveData<Week> loadWeekById(String id);
 
     @Query("SELECT * FROM week WHERE task_name = :taskName")
     LiveData<Week> loadWeekByTaskName(String taskName);

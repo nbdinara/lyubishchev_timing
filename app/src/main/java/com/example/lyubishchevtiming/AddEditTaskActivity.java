@@ -24,8 +24,6 @@ import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
 import com.example.lyubishchevtiming.viewmodel.MainViewModel;
-import com.example.lyubishchevtiming.viewmodel.TaskWeekByNameViewModel;
-import com.example.lyubishchevtiming.viewmodel.TaskWeekByNameViewModelFactory;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,6 +60,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private Week weekLoaded;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +83,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity != null && intentThatStartedThisActivity.hasExtra("task")) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             isEdit = true;
-            loadWeekFromDatabase(Integer.valueOf(mTask.getWeekId()));
-
+            loadWeekFromDatabase(String.valueOf(mTask.getWeekId()));
             fillFieldsFromIntent();
         } else {
-            mWeek = new Week();
             mTask = new Task();
+            mWeek = new Week();
             isEdit = false;
         }
 
@@ -118,12 +116,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
                     updateTaskInDatabase();
                 } else {
                     getDataFromFields();
-                    addWeekToDatabase();
-                    getWeekByTaskName(mTask.getName());
-                    Log.d(TAG, "onClick: " + mWeek.getId() + "   " + mWeek.getMon());
-                    mTask.setWeekId(mWeek.getId());
-                    Log.d(TAG, "onClick: " + mTask.getId() + "   " + mTask.getWeekId());
-
                     addTaskToDatabase();
                 }
                 finish();
@@ -133,11 +125,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
     }
 
 
-
     public void fillFieldsFromIntent(){
         if (mTask != null){
             //TODO fill views with data from intent
-            mWeek = loadWeekFromDatabase(mTask.getWeekId());
+            loadWeekFromDatabase(mTask.getWeekId());
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -210,8 +201,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
         Random rand = new Random();
         int selected = rand.nextInt(100);
-        Integer weekId = new Integer( mTask.getId() + selected);
 
+        String weekId = String.valueOf(mTask.getId() + selected);
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -248,7 +239,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
             mWeek.setSun(0);
         }
 
-        mWeek.setTaskName(mTask.getName());
+        mWeek.setId(weekId);
+        mTask.setWeekId(String.valueOf(mWeek.getId()));
     }
 
 
@@ -277,8 +269,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         long milliseconds = date.getTime();
         mTask.setDuration(milliseconds);
 
-
-
+        String weekId = mTask.getId() + "";
         if (monCheckBox.isChecked()) {
             mWeek.setMon(milliseconds);
         } else {
@@ -325,8 +316,9 @@ public class AddEditTaskActivity extends AppCompatActivity {
     }
 
 
-    private Week loadWeekFromDatabase(Integer id) {
+    private Week loadWeekFromDatabase(String id) {
         weekLoaded = new Week();
+
         TaskWeekViewModelFactory factory = new TaskWeekViewModelFactory(mDb, id);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
@@ -349,37 +341,13 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 });
             }
         });
-
         return weekLoaded;
+
     }
 
-    public void getWeekByTaskName(String taskName){
+    //                            mDb.recipeDao().updateRecipe(recipe);
 
-        TaskWeekByNameViewModelFactory factory = new TaskWeekByNameViewModelFactory(mDb, taskName);
-        // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
-        // for that use the factory created above AddTaskViewModel
-        final TaskWeekByNameViewModel viewModel
-                = ViewModelProviders.of(this, factory).get(TaskWeekByNameViewModel.class);
-
-        // COMPLETED (12) Observe the LiveData object in the ViewModel. Use it also when removing the observer
-        viewModel.getWeekByTaskName().observe(this, new Observer<Week>() {
-            @Override
-            public void onChanged(@Nullable final Week week) {
-                viewModel.getWeekByTaskName().removeObserver(this);
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (week != null) {
-                            mWeek = week;
-                            Log.d(TAG, "run: getweekbytaskname" + mWeek.getId());
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    public void addWeekToDatabase(){
+    public void addTaskToDatabase(){
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -387,9 +355,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 mDb.weekDao().insertWeekDayCombination(mWeek);
             }
         });
-    }
 
-    public void addTaskToDatabase(){
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -408,7 +374,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(TAG, "updateTaskInDatabase: " + mTask.getWeekId());
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
