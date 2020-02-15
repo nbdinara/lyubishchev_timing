@@ -30,7 +30,7 @@ public interface LogDao {
     @Query("SELECT sum(today_time_amount) FROM log WHERE today_date BETWEEN :start AND :end AND task_id = :id group by task_id")
     LiveData<Long> loadLogsForTodayTask(int id, Date start, Date end);
 
-    @Query("SELECT  task.id, task.name, sum(log.desired_time_amount) as desired_time_amount, sum(log.today_time_amount) as today_time_amount, task.color " +
+    @Query("SELECT  task.id, task.name,  sum(log.today_time_amount) as today_time_amount, (log.desired_time_amount) as desired_time_amount, task.color " +
             "FROM log LEFT JOIN task " +
             "ON log.task_id = task.id " +
             "GROUP BY task.id " +

@@ -99,6 +99,8 @@ public class TaskActivity extends AppCompatActivity {
         mSatImageView = findViewById(R.id.sat_icon);
         mSunImageView = findViewById(R.id.sun_icon);
 
+        mDoneTextView.setText(getResources().getString(R.string.done, getResources().getString(R.string.default_left)));
+
         mAddEditTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +126,7 @@ public class TaskActivity extends AppCompatActivity {
 
     public void populateUI(){
         mTaskNameTextView.setText(mTask.getName());
+        Log.d(TAG, "populateUI: goal " + mTask.getDuration());
         String duration = convertTimeAmountToStringWithoutUTF(mTask.getDuration());
         mGoalTextView.setText(getResources().getString(R.string.goal,duration ));
 
@@ -366,19 +369,28 @@ public class TaskActivity extends AppCompatActivity {
             leftInSec = leftInSec % 60;
             int left_sec = leftInSec;
             String leftString = "";
-            if (left_hours < 10) {
+
+            if (left_hours < 0) {
+                leftString = leftString + "00" + ":";
+            }
+            else if (left_hours < 10 && left_hours >= 0) {
                 leftString = leftString + "0" + left_hours + ":";
+
             } else {
                 leftString = leftString + left_hours + ":";
             }
 
-            if (left_min < 10) {
+            if (left_min < 0) {
+                leftString = leftString + "00" + ":";
+            } else if (left_min < 10 && left_min >= 0) {
                 leftString = leftString + "0" + left_min + ":";
             } else {
                 leftString = leftString + left_min + ":";
             }
 
-            if (left_sec < 10) {
+            if (left_sec < 0){
+                leftString = leftString + "00";
+            }else if (left_sec < 10) {
                 leftString = leftString + "0" + left_sec;
             } else {
                 leftString = leftString + left_sec;

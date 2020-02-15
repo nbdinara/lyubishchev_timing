@@ -11,12 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
+import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Summary;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModelFactory;
@@ -32,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
@@ -153,6 +156,10 @@ public class SummaryFragment extends Fragment {
                         if (summaries != null) {
                             mSummaries = summaries;
                             Log.d(TAG, "loadSummaryData: " + mSummaries.size());
+                            for (int  i = 0; i < mSummaries.size(); i++){
+                                Log.d(TAG, "loadSummaryData: actual: " + mSummaries.get(i).getActualTimeAmount() + " desired: " + mSummaries.get(i).getDesiredTimeAmount());
+
+                            }
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -174,6 +181,8 @@ public class SummaryFragment extends Fragment {
     }
 
 
+
+
     public void adjustPieChart(){
         //pieChart.setDescription(R.string.add);
         pieChart.setRotationEnabled(true);
@@ -188,19 +197,28 @@ public class SummaryFragment extends Fragment {
         ArrayList<String> xEntries = new ArrayList<>();
 
         for (int i = 0; i < mSummaries.size(); i++){
-            yEntries.add(new PieEntry(mSummaries.get(i).getActualTimeAmount(), i));
+            String timeAmount = convertTimeAmountToString(mSummaries.get(i).getActualTimeAmount());
+            yEntries.add(new PieEntry(mSummaries.get(i).getActualTimeAmount(), mSummaries.get(i).getTaskName()));
         }
 
         for (int i = 0; i < mSummaries.size(); i++){
             xEntries.add(mSummaries.get(i).getTaskName());
         }
 
-        PieDataSet pieDataSet = new PieDataSet(yEntries, "Sales");
+        PieDataSet pieDataSet = new PieDataSet(yEntries, "Productivity");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(14);
         PieData data = new PieData(pieDataSet);
         pieChart.setData(data);
         pieChart.invalidate(); // refresh
+    }
+
+    public String convertTimeAmountToString(long timeAmount){
+        Date date = new Date(timeAmount);
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String dateFormatted = formatter.format(date);
+        return dateFormatted;
     }
 
 }
