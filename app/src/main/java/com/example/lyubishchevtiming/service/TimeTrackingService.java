@@ -30,14 +30,18 @@ public class TimeTrackingService extends Service {
         Log.d(TAG, "onStartCommand: " + task.getName());
         long desiredTimeAmount = intent.getLongExtra("desiredTime", 0);
         Log.d(TAG, "onStartCommand: " + desiredTimeAmount);
+        long timeWhenStopped = intent.getLongExtra("time", 0);
+        boolean isRunning = intent.getBooleanExtra("running", true);
 
 
         Intent notificationIntent = new Intent(this, TimeTrackingActivity.class);
         notificationIntent.putExtra("task", task);
         notificationIntent.putExtra("todayDesiredTime", desiredTimeAmount);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.putExtra("time", timeWhenStopped);
+        notificationIntent.putExtra("running", isRunning);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
+                0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Lyubishchev Timing")

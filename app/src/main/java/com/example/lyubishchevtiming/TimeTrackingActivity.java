@@ -44,19 +44,38 @@ public class TimeTrackingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_time_tracking);
 
         mDb = AppDatabase.getInstance(this);
-
+        mChronometer = findViewById(R.id.chronometer);
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity != null) {
             mTask = intentThatStartedThisActivity.getExtras().getParcelable("task");
             desiredTimeAmount = intentThatStartedThisActivity.getLongExtra("todayDesiredTime", 0);
+            if (intentThatStartedThisActivity.hasExtra("time") && intentThatStartedThisActivity.hasExtra("running")) {
+                if (intentThatStartedThisActivity.hasExtra("time")) {
+                    timeWhenStopped = intentThatStartedThisActivity.getLongExtra("time", 0);
+                    setCurrentTime(timeWhenStopped);
+                    android.util.Log.d(TAG, "onCreate: max " + timeWhenStopped);
+                    timeWhenStopped = SystemClock.elapsedRealtime() - mChronometer.getBase();
+                    android.util.Log.d(TAG, "onCreate:22 max " + timeWhenStopped);
+                    if (intentThatStartedThisActivity.hasExtra("running")) {
+                        isRunning = intentThatStartedThisActivity.getBooleanExtra("running", false);
+                        if (isRunning) {
+                            mChronometer.start();
+                        }
+                    }
+                }
+
+            } else {
+                startChronometer();
+            }
         }
 
-        mChronometer = findViewById(R.id.chronometer);
         mStartButton = findViewById(R.id.stop_btn);
         mCancelButton = findViewById(R.id.cancel_btn);
 
         if (savedInstanceState!= null){
+            android.util.Log.d(TAG, "onCreate: savedInstanceState != null");
+            android.util.Log.d(TAG, "onCreate: SystemClock.elapsedRealtime() !=null " + SystemClock.elapsedRealtime());
 
             isRunning = savedInstanceState.getBoolean(CHRONOMETER_RUNNING_KEY);
             setCurrentTime(savedInstanceState.getLong(CHRONOMETER_TIME_KEY));
@@ -65,10 +84,22 @@ public class TimeTrackingActivity extends AppCompatActivity {
                 mChronometer.start();
             }
 
-        }  else {
-            startChronometer();
-        }
+        } else if (savedInstanceState == null && !intentThatStartedThisActivity.hasExtra("time")){
+            android.util.Log.d(TAG, "onCreate: savedInstanceState == null");
+            android.util.Log.d(TAG, "onCreate: SystemClock.elapsedRealtime() == null " + SystemClock.elapsedRealtime());
 
+            startChronometer();
+        } else if (intentThatStartedThisActivity.hasExtra("time") && intentThatStartedThisActivity.hasExtra("running")){
+
+            timeWhenStopped = intentThatStartedThisActivity.getLongExtra("time", 0);
+            android.util.Log.d(TAG, "onCreate: timeWhenStopped is " + timeWhenStopped);
+            isRunning = intentThatStartedThisActivity.getBooleanExtra("running", false);
+            setCurrentTime(timeWhenStopped);
+
+            if (isRunning) {
+                mChronometer.start();
+            }
+        }
 
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +187,11 @@ public class TimeTrackingActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, TimeTrackingService.class);
         serviceIntent.putExtra("taskExtra", mTask);
         serviceIntent.putExtra("desiredTime", desiredTimeAmount);
+        if (isRunning) {
+            timeWhenStopped = SystemClock.elapsedRealtime() - mChronometer.getBase();
+        }
+        serviceIntent.putExtra("time", timeWhenStopped);
+        serviceIntent.putExtra("running", isRunning);
 
         ContextCompat.startForegroundService(this, serviceIntent);
     }
