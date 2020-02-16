@@ -10,12 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.core.content.ContextCompat;
-
 import com.example.lyubishchevtiming.model.Task;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends BaseAdapter {
@@ -100,43 +96,45 @@ public class TaskAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void setImageViewColor(){
-        switch (task.getColor()) {
-            case "red":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.red), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "glaucous":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.glaucous), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "yellow":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "green":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.green), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "orange":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.orange), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "peach":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.peach), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "lavender":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.lavender), PorterDuff.Mode.SRC_ATOP);
-                break;
-            case "blue":
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.blue), PorterDuff.Mode.SRC_ATOP);
-                break;
-            default:
-                taskImageView.getBackground().setColorFilter(ContextCompat
-                        .getColor(mContext, R.color.colorPrimaryLight), PorterDuff.Mode.SRC_ATOP);
+    private void setImageViewColor() {
+        if (taskImageView.getBackground() != null) {
+            switch (task.getColor()) {
+                case "red":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.red), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "glaucous":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.glaucous), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "yellow":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "green":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.green), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "orange":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.orange), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "peach":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.peach), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "lavender":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.lavender), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case "blue":
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.blue), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                default:
+                    taskImageView.getBackground().setColorFilter(ContextCompat
+                            .getColor(mContext, R.color.colorPrimaryLight), PorterDuff.Mode.SRC_ATOP);
+            }
         }
     }
 }

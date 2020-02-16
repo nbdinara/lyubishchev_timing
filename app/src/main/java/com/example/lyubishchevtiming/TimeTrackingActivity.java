@@ -1,5 +1,6 @@
 package com.example.lyubishchevtiming;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.ColumnInfo;
 
@@ -30,11 +31,16 @@ public class TimeTrackingActivity extends AppCompatActivity {
     private Log mLog;
     private long timeAmount;
     private long desiredTimeAmount;
+    private long timeWhenStopped = 0;
+
+    private static final String CHRONOMETER_TIME_KEY = "time";
+    private static final String CHRONOMETER_RUNNING_KEY = "running";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_tracking);
+
         mDb = AppDatabase.getInstance(this);
 
 
@@ -47,7 +53,19 @@ public class TimeTrackingActivity extends AppCompatActivity {
         mChronometer = findViewById(R.id.chronometer);
         mStartButton = findViewById(R.id.stop_btn);
         mCancelButton = findViewById(R.id.cancel_btn);
-        startChronometer();
+
+        if (savedInstanceState!= null){
+
+            isRunning = savedInstanceState.getBoolean(CHRONOMETER_RUNNING_KEY);
+            setCurrentTime(savedInstanceState.getLong(CHRONOMETER_TIME_KEY));
+            timeWhenStopped = SystemClock.elapsedRealtime() - mChronometer.getBase();
+            if (isRunning) {
+                mChronometer.start();
+            }
+
+        }  else {
+            startChronometer();
+        }
 
 
         mStartButton.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +85,13 @@ public class TimeTrackingActivity extends AppCompatActivity {
         });
     }
 
+    public void setCurrentTime(long time) {
+        timeWhenStopped = time;
+        mChronometer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
+    }
+
     public void startChronometer(){
-        mChronometer.setBase(SystemClock.elapsedRealtime());
+        mChronometer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         mChronometer.start();
         isRunning = true;
     }
@@ -114,4 +137,16 @@ public class TimeTrackingActivity extends AppCompatActivity {
         android.util.Log.d(TAG, "saveLogToDb: " + mLog.getId() + " / " + mLog.getTodayDate() +
                 " / " + mLog.getTodayTimeAmount() + " / " + mLog.getDesiredTimeAmount() + " / " + mLog.getTaskId() );
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (isRunning) {
+            timeWhenStopped = SystemClock.elapsedRealtime() - mChronometer.getBase();
+        }
+        outState.putLong(CHRONOMETER_TIME_KEY, timeWhenStopped );
+        outState.putBoolean(CHRONOMETER_RUNNING_KEY, isRunning);
+    }
+
+
 }

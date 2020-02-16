@@ -39,5 +39,14 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:authorities="com.example.lyubishchevtiming.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path"/>
+        </provider>
     </application>
 </manifest>

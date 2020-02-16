@@ -1,8 +1,10 @@
 package com.example.lyubishchevtiming;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -20,7 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
+import com.example.lyubishchevtiming.model.Log;
 import com.example.lyubishchevtiming.model.Summary;
+import com.example.lyubishchevtiming.model.Task;
+import com.example.lyubishchevtiming.viewmodel.AllLogsViewModel;
+import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModelFactory;
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,7 +37,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +66,8 @@ public class SummaryFragment extends Fragment {
     private String[] timePeriods = {"today", "last 7 days", "last 30 days", "last 365 days"};
     private AppDatabase mDb;
     private TextView mDate;
+    private FloatingActionButton mDownloadLogsButton;
+    private List<Log> allLogs;
 
 
     @Override
@@ -63,6 +75,7 @@ public class SummaryFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_summary, container, false);
 
         mDb = AppDatabase.getInstance(getActivity());
+        mDownloadLogsButton = rootView.findViewById(R.id.fab_download_csv);
         mDate = rootView.findViewById(R.id.period);
         mTimePeriod = rootView.findViewById(R.id.time_period);
         pieChart = rootView.findViewById(R.id.pie_chart);
@@ -113,7 +126,76 @@ public class SummaryFragment extends Fragment {
 
             }
         });
+
+        mDownloadLogsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                downloadAllLogs();
+                StringBuilder data = new StringBuilder();
+                data.append("Id,Date,Actual Time Amount,Desired Time Amount,Task Id");
+                if (allLogs!=null) {
+                    for (int i = 0; i < allLogs.size(); i++) {
+                        String actualTime = convertTimeAmountToString(allLogs.get(i).getTodayTimeAmount());
+                        String actual = formateTimeString(actualTime);
+
+                        String desired = "";
+                        if (allLogs.get(i).getDesiredTimeAmount() != 0) {
+                            String desiredTime = convertTimeAmountToStringWithoutUTF(allLogs.get(i).getDesiredTimeAmount());
+                            desired = formateTimeString(desiredTime);
+                        } else {
+                            desired = "day off";
+                        }
+
+                        data.append("\n" + allLogs.get(i).getId() + "," +
+                                converDateToString(allLogs.get(i).getTodayDate()) + "," + actual
+                                + "," + desired + "," + allLogs.get(i).getTaskId());
+                    }
+                        try {
+                            //saving
+                            FileOutputStream out = getContext().openFileOutput("data.csv", Context.MODE_PRIVATE);
+                            out.write(data.toString().getBytes());
+                            out.close();
+
+                            //exporting
+                            Context context = getContext();
+                            File fileLocation = new File (getContext().getFilesDir(), "data.csv");
+                            Uri path = FileProvider.getUriForFile(context, "com.example.lyubishchevtiming.fileprovider", fileLocation);
+                            Intent fileIntent  = new Intent(Intent.ACTION_SEND);
+                            fileIntent.setType("text/csv");
+                            fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Logs");
+                            fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            fileIntent.putExtra(Intent.EXTRA_STREAM, path);
+                            startActivity(Intent.createChooser(fileIntent, "Send logs"));
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                }
+            }
+        });
+
         return rootView;
+    }
+
+    public String formateTimeString(String time){
+
+        int hours = Integer.parseInt(time.substring(0, 2));
+        int min = Integer.parseInt(time.substring(3, 5));
+        int sec = Integer.parseInt(time.substring(6, 8));
+        String formattedTime = hours + " h " + min + " min " + sec + " sec ";
+        return formattedTime;
+    }
+
+    public void downloadAllLogs(){
+        AllLogsViewModel viewModel = ViewModelProviders.of(getActivity()).get(AllLogsViewModel.class);
+        viewModel.getLogs().observe(getViewLifecycleOwner(), new Observer<List<Log>>() {
+            @Override
+            public void onChanged(List<Log> mLogs) {
+                if (!mLogs.isEmpty()) {
+                    allLogs = mLogs;
+                }
+
+            }
+        });
     }
 
 
@@ -149,7 +231,7 @@ public class SummaryFragment extends Fragment {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         final String startString = simpleDateFormat.format(start);
         final String endString = simpleDateFormat.format(end);
-        Log.d(TAG, "loadSummaryData: start " + start + " end " + end);
+        //Log.d(TAG, "loadSummaryData: start " + start + " end " + end);
         SummaryViewModelFactory factory = new SummaryViewModelFactory(mDb, start, end);
         // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
         // for that use the factory created above AddTaskViewModel
@@ -165,9 +247,9 @@ public class SummaryFragment extends Fragment {
                     public void run() {
                         if (summaries != null) {
                             mSummaries = summaries;
-                            Log.d(TAG, "loadSummaryData: " + mSummaries.size());
+                            //Log.d(TAG, "loadSummaryData: " + mSummaries.size());
                             for (int  i = 0; i < mSummaries.size(); i++){
-                                Log.d(TAG, "loadSummaryData: actual: " + mSummaries.get(i).getActualTimeAmount() + " desired: " + mSummaries.get(i).getDesiredTimeAmount());
+                               // Log.d(TAG, "loadSummaryData: actual: " + mSummaries.get(i).getActualTimeAmount() + " desired: " + mSummaries.get(i).getDesiredTimeAmount());
 
                             }
                             getActivity().runOnUiThread(new Runnable() {
@@ -181,9 +263,6 @@ public class SummaryFragment extends Fragment {
 
                                 }
                             });
-
-
-
                         }
                     }
                 });
@@ -193,6 +272,12 @@ public class SummaryFragment extends Fragment {
 
 
 
+    public String converDateToString(Date date){
+        String pattern = "dd/MM/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String dateAsString = df.format(date);
+        return dateAsString;
+    }
 
     public void adjustPieChart(){
         //pieChart.setDescription(R.string.add);
@@ -275,7 +360,6 @@ public class SummaryFragment extends Fragment {
 
 
     }
-
 
     public String convertTimeAmountToStringWithoutUTF(long timeAmount){
         Date date = new Date(timeAmount);

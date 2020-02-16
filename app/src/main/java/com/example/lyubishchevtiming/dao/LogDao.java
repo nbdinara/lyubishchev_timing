@@ -19,7 +19,7 @@ public interface LogDao {
     LiveData<List<Log>> loadLogById(int id);
 
     @Query("SELECT * FROM log")
-    LiveData<Log> loadAllLogs();
+    LiveData<List<Log>> loadAllLogs();
 
     @Insert
     void insertLog(Log log);
