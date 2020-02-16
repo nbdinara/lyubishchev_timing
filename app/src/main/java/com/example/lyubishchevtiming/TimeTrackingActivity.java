@@ -2,6 +2,7 @@ package com.example.lyubishchevtiming;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Log;
 import com.example.lyubishchevtiming.model.Task;
+import com.example.lyubishchevtiming.service.TimeTrackingService;
 
 import java.util.Date;
 import static android.content.ContentValues.TAG;
@@ -94,9 +96,11 @@ public class TimeTrackingActivity extends AppCompatActivity {
         mChronometer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         mChronometer.start();
         isRunning = true;
+        startService();
     }
 
     public void stopChronometer(){
+        stopService();
         mChronometer.stop();
         timeAmount = SystemClock.elapsedRealtime() - mChronometer.getBase();
         String mTaskName = mTask.getName();
@@ -146,6 +150,19 @@ public class TimeTrackingActivity extends AppCompatActivity {
         }
         outState.putLong(CHRONOMETER_TIME_KEY, timeWhenStopped );
         outState.putBoolean(CHRONOMETER_RUNNING_KEY, isRunning);
+    }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(this, TimeTrackingService.class);
+        serviceIntent.putExtra("taskExtra", mTask);
+        serviceIntent.putExtra("desiredTime", desiredTimeAmount);
+
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, TimeTrackingService.class);
+        stopService(serviceIntent);
     }
 
 

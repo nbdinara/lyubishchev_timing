@@ -5,6 +5,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".service.App"
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -48,5 +49,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_path"/>
         </provider>
+        <service android:name=".service.TimeTrackingService" />
     </application>
 </manifest>
