@@ -59,7 +59,12 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
         holder.name.setText(taskSummary.getTaskName());
         //TODO convert long timeAmount to the hours and minutes
         String actualTime = convertTimeAmountToString(taskSummary.getActualTimeAmount());
-        String desiredTime = convertTimeAmountToStringWithoutUTF(taskSummary.getDesiredTimeAmount());
+        String desiredTime = "";
+        if (taskSummary.getDesiredTimeAmount() == 0) {
+            desiredTime = "00:00:00";
+        }else{
+            desiredTime = convertTimeAmountToStringWithoutUTF(taskSummary.getDesiredTimeAmount());
+        }
         Log.d(TAG, "onBindViewHolder: actual " + taskSummary.getActualTimeAmount() +  " desiredtime "  + taskSummary.getDesiredTimeAmount());
         holder.timeAmount.setText(actualTime + "\\" + desiredTime);
         holder.viewForeground.setBackgroundResource(R.color.blue);

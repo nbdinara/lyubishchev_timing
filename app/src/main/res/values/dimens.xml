@@ -34,4 +34,7 @@
 
     <!--list_item.xml-->
     <dimen name="list_item_height">80dp</dimen>
+
+    <!--fragment_summary-->
+    <dimen name="date_label_size">20sp</dimen>
 </resources>
