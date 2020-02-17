@@ -373,18 +373,13 @@ public class SummaryFragment extends Fragment {
                         taskName = yEntries.get(i).getLabel();
                     }
                 }
-
-
                 Toast.makeText(getContext(), taskName, Toast.LENGTH_LONG).show();
-
             }
-
             @Override
             public void onNothingSelected() {
 
             }
         });
-
         pieChart.invalidate(); // refresh
 
 

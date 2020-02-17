@@ -29,6 +29,7 @@
 
     <TextView
         android:id="@+id/task_name_summary"
+        android:contentDescription="@string/task_name_label"
         android:layout_marginTop="@dimen/margin_start"
         android:textSize="@dimen/list_title_size"
         android:layout_width="match_parent"

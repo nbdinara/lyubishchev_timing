@@ -13,7 +13,8 @@
         android:text="@string/sun_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_center"
-        app:layout_constraintTop_toBottomOf="@+id/sat_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/sat_checkBox"
+        android:contentDescription="@string/sun_label"/>
 
     <CheckBox
         android:id="@+id/fri_checkBox"
@@ -23,7 +24,8 @@
         android:textColor="@color/colorTextSecondary"
         android:layout_marginTop="@dimen/margin_start"
         app:layout_constraintStart_toStartOf="@+id/guideline_center"
-        app:layout_constraintTop_toBottomOf="@+id/task_days_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/task_days_heading"
+        android:contentDescription="@string/fri_label"/>
 
     <CheckBox
         android:id="@+id/sat_checkBox"
@@ -32,7 +34,8 @@
         android:text="@string/sat_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_center"
-        app:layout_constraintTop_toBottomOf="@+id/fri_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/fri_checkBox"
+        android:contentDescription="@string/sat_label"/>
 
     <CheckBox
         android:id="@+id/thu_checkBox"
@@ -41,7 +44,8 @@
         android:text="@string/thu_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/wed_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/wed_checkBox"
+        android:contentDescription="@string/thu_label"/>
 
     <CheckBox
         android:id="@+id/wed_checkBox"
@@ -50,7 +54,8 @@
         android:text="@string/wed_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/tue_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/tue_checkBox"
+        android:contentDescription="@string/wed_label"/>
 
     <CheckBox
         android:id="@+id/tue_checkBox"
@@ -59,7 +64,8 @@
         android:text="@string/tue_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/mon_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/mon_checkBox"
+        android:contentDescription="@string/tue_label"/>
 
     <TextView
         android:id="@+id/task_days_heading"
@@ -71,7 +77,8 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/task_name_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/task_name_edit_text"
+        android:contentDescription="@string/task_days_label"/>
 
     <TextView
         android:id="@+id/task_name_heading"
@@ -83,7 +90,8 @@
         android:textSize="@dimen/list_title_size"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/task_name_label"/>
 
     <EditText
         android:id="@+id/task_name_edit_text"
@@ -117,7 +125,8 @@
         android:text="@string/mon_label"
         android:textColor="@color/colorTextSecondary"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/task_days_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/task_days_heading"
+        android:contentDescription="@string/mon_label"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_center"
@@ -135,7 +144,8 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="@dimen/margin_start"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/thu_checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/thu_checkBox"
+        android:contentDescription="@string/duration_label"/>
 
     <TextView
         android:id="@+id/hours_heading"
@@ -145,7 +155,8 @@
         android:text="@string/hours_label"
         android:textSize="@dimen/body_text_size"
         app:layout_constraintStart_toStartOf="@+id/hours_number_picker"
-        app:layout_constraintTop_toBottomOf="@+id/duration_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/duration_heading"
+        android:contentDescription="@string/hours_label"/>
 
     <TextView
         android:id="@+id/minutes_heading"
@@ -155,7 +166,8 @@
         android:text="@string/minutes_label"
         android:textSize="@dimen/body_text_size"
         app:layout_constraintStart_toStartOf="@+id/minutes_number_picker"
-        app:layout_constraintTop_toBottomOf="@+id/duration_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/duration_heading"
+        android:contentDescription="@string/minutes_label"/>
 
     <NumberPicker
         android:id="@+id/hours_number_picker"
@@ -184,6 +196,7 @@
         android:layout_marginBottom="@dimen/margin_start"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:srcCompat="@drawable/circle_shape"
-        android:src="@drawable/ic_ic_correct"/>
+        android:src="@drawable/ic_ic_correct"
+        android:contentDescription="@string/save"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

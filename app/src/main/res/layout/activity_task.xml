@@ -46,6 +46,7 @@
 
                 <TextView
                     android:id="@+id/goal"
+                    android:contentDescription="@string/goal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -60,6 +61,7 @@
 
                     <ImageView
                         android:id="@+id/mon_icon"
+                        android:contentDescription="@string/mon_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -67,6 +69,7 @@
 
                     <ImageView
                         android:id="@+id/tue_icon"
+                        android:contentDescription="@string/tue_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -74,6 +77,7 @@
 
                     <ImageView
                         android:id="@+id/wed_icon"
+                        android:contentDescription="@string/wed_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -81,6 +85,7 @@
 
                     <ImageView
                         android:id="@+id/thu_icon"
+                        android:contentDescription="@string/thu_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -88,6 +93,7 @@
 
                     <ImageView
                         android:id="@+id/fri_icon"
+                        android:contentDescription="@string/fri_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -95,6 +101,7 @@
 
                     <ImageView
                         android:id="@+id/sat_icon"
+                        android:contentDescription="@string/sat_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -102,6 +109,7 @@
 
                     <ImageView
                         android:id="@+id/sun_icon"
+                        android:contentDescription="@string/sun_label"
                         android:layout_width="@dimen/weekday_icon_size"
                         android:layout_height="@dimen/weekday_icon_size"
                         android:layout_weight="1"
@@ -112,6 +120,7 @@
 
                 <TextView
                     android:id="@+id/done"
+                    android:contentDescription="@string/done"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_start"
@@ -120,6 +129,7 @@
 
                 <TextView
                     android:id="@+id/left"
+                    android:contentDescription="@string/left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/left"
@@ -127,6 +137,7 @@
 
                 <Button
                     android:id="@+id/start_button"
+                    android:contentDescription="@string/start"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal|bottom"

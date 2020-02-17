@@ -1,65 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <GridView
-        android:visibility="visible"
-        android:id="@+id/grid_view_tasks"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_start"
-        android:gravity="center"
-        android:columnWidth="100dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="24dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="spacingWidthUniform"/>
+        android:orientation="vertical">
 
 
-</LinearLayout>
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <GridView
+            android:id="@+id/grid_view_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_start"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="spacingWidthUniform"
+            android:verticalSpacing="24dp"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        android:layout_marginBottom="@dimen/margin_start"
         android:layout_gravity="bottom|center"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
+        android:layout_marginBottom="@dimen/margin_start"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_task"
+        android:contentDescription="@string/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:src="@drawable/ic_plus"
-        android:background="@color/colorAccent"
         android:layout_gravity="bottom|right|end"
-        android:layout_marginBottom="@dimen/margin_start"
+        android:layout_margin="16dp"
         android:layout_marginEnd="@dimen/margin_start"
-        android:layout_marginRight="@dimen/margin_start"/>
+        android:layout_marginRight="@dimen/margin_start"
+        android:layout_marginBottom="@dimen/margin_start"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:src="@drawable/ic_plus"
+        android:visibility="invisible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:contentDescription="@string/delete"
         android:id="@+id/fab_delete_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:src="@drawable/ic_edit"
-        android:background="@color/colorAccent"
         android:layout_gravity="bottom|left"
-        android:layout_marginBottom="@dimen/margin_start"
+        android:layout_margin="16dp"
         android:layout_marginEnd="@dimen/margin_start"
-        android:layout_marginRight="@dimen/margin_start"/>
+        android:layout_marginRight="@dimen/margin_start"
+        android:layout_marginBottom="@dimen/margin_start"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:src="@drawable/ic_edit"
+        android:visibility="invisible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

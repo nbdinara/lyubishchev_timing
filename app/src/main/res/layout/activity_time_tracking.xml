@@ -7,7 +7,6 @@
     tools:context=".TimeTrackingActivity"
     android:background="@color/colorPrimary">
 
-
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
@@ -18,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_name_summary"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintVertical_chainStyle="spread"
+        android:contentDescription="@string/stopwatch"/>
 
     <TextView
         android:id="@+id/task_name_summary"
@@ -34,6 +34,7 @@
 
     <Button
         android:id="@+id/stop_btn"
+        android:contentDescription="@string/stop"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/circle"
@@ -49,6 +50,7 @@
 
     <Button
         android:id="@+id/cancel_btn"
+        android:contentDescription="@string/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
