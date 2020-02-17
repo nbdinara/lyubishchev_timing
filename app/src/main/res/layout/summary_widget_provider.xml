@@ -4,7 +4,9 @@
     android:background="@color/colorPrimaryDarkTransparent"
     android:padding="@dimen/widget_margin"
     android:layout_margin="@dimen/widget_margin"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/productivity_label"

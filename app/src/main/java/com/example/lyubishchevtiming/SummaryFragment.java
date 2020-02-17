@@ -284,7 +284,7 @@ public class SummaryFragment extends Fragment {
     public void adjustPieChart(){
         //pieChart.setDescription(R.string.add);
         pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(50f);
+        pieChart.setHoleRadius(60f);
         pieChart.setCenterTextSize(20);
         pieChart.setUsePercentValues(true);
 
@@ -340,8 +340,12 @@ public class SummaryFragment extends Fragment {
         pieDataSet.setValueTextSize(14);
         PieData data = new PieData(pieDataSet);
         pieChart.setData(data);
-        pieChart.setCenterText(getResources().getString(R.string.chart_name, actualTimeHours,
-                actualTimeMin, desiredTimeHours, desiredTimeMin));
+        if(mSummaries.size()!=0) {
+            pieChart.setCenterText(getResources().getString(R.string.chart_name, actualTimeHours,
+                    actualTimeMin, desiredTimeHours, desiredTimeMin));
+        } else {
+            pieChart.setCenterText("Nothing done today");
+        }
 /*
         SharedPreferences prefs = getActivity().getSharedPreferences(
                 "com.example.app", Context.MODE_PRIVATE);

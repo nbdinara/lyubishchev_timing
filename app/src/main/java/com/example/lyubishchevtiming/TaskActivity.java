@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.room.ColumnInfo;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
@@ -28,13 +25,10 @@ import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
@@ -99,7 +93,7 @@ public class TaskActivity extends AppCompatActivity {
         mSatImageView = findViewById(R.id.sat_icon);
         mSunImageView = findViewById(R.id.sun_icon);
 
-        mDoneTextView.setText(getResources().getString(R.string.done, getResources().getString(R.string.default_left)));
+        mDoneTextView.setText(getResources().getString(R.string.done, getResources().getString(R.string.default_done)));
 
         mAddEditTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override

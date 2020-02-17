@@ -93,9 +93,16 @@ public class SummaryWidgetService extends IntentService {
                 int desiredTimeHours = Integer.parseInt(desiredTime.substring(0, 2));
                 int desiredTimeMin = Integer.parseInt(desiredTime.substring(3, 5));
 
-                String actual = getResources().getString(R.string.actual_time, actualTimeHours, actualTimeMin);
-                String desired = getResources().getString(R.string.desired_time, desiredTimeHours, desiredTimeMin);
-                Log.d(TAG, "run: actual and desired " + actual + desired);
+                String actual = "";
+                String desired = "";
+                if (summaries.size()!=0) {
+                    actual = getResources().getString(R.string.actual_time, actualTimeHours, actualTimeMin);
+                    desired = getResources().getString(R.string.desired_time, desiredTimeHours, desiredTimeMin);
+                    Log.d(TAG, "run: actual and desired " + actual + desired);
+                } else {
+                    actual = "Start activity now!";
+                    desired = "";
+                }
 
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), SummaryWidgetProvider.class));

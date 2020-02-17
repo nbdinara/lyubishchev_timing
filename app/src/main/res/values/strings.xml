@@ -12,6 +12,7 @@
     <string name="left">Left: %1$s</string>
     <string name="start">Start</string>
     <string name="default_left">day off</string>
+    <string name="default_done">00:00:00</string>
 
     <!--activity_add_edit_task.xml-->
     <string name="task_name_label">Task name: </string>
