@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-"/>
+            android:value="ca-app-pub-8829510278890922~4259827292"/>
 
         <receiver android:name=".widget.SummaryWidgetProvider">
             <intent-filter>

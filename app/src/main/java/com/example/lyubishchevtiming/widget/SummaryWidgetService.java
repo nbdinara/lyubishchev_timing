@@ -73,11 +73,6 @@ public class SummaryWidgetService extends IntentService {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         final Date end = calendar.getTime();
 
-        String pattern = "EEE, MMM dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        final String startString = simpleDateFormat.format(start);
-        final String endString = simpleDateFormat.format(end);
-
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -86,11 +81,6 @@ public class SummaryWidgetService extends IntentService {
                 long desiredTotalAmountOfTime = 0;
                 long actualTotalAmountOfTime = 0;
                 for (int i = 0; i < summaries.size(); i++) {
-                    String timeAmount = convertTimeAmountToString(summaries.get(i).getActualTimeAmount());
-                    int hours = Integer.parseInt(timeAmount.substring(0, 2));
-                    int min = Integer.parseInt(timeAmount.substring(3, 5));
-                    int sec = Integer.parseInt(timeAmount.substring(6, 8));
-
                     desiredTotalAmountOfTime = desiredTotalAmountOfTime + summaries.get(i).getDesiredTimeAmount();
                     actualTotalAmountOfTime = actualTotalAmountOfTime + summaries.get(i).getActualTimeAmount();
                 }

@@ -1,8 +1,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,130 +12,135 @@
         <LinearLayout
             android:id="@+id/viewA"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
+            android:layout_height="@dimen/view_a_height"
             android:background="@android:color/holo_purple"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/task_name_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:textColor="@color/colorIcons"
-                android:textSize="@dimen/task_name_text_size"/>
+                android:textSize="@dimen/task_name_text_size" />
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/viewB"
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/margin_start"
-            android:layout_marginLeft="@dimen/margin_start"
-            android:layout_marginEnd="@dimen/margin_start"
-            android:layout_marginRight="@dimen/margin_start"
-            android:layout_marginTop="@dimen/margin_start">
-
-            <TextView
-                android:id="@+id/goal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/goal"
-                android:textSize="@dimen/goal_text_size"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".ScrollingActivity">
 
             <LinearLayout
+                android:id="@+id/viewB"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_start">
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginLeft="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_start"
+                android:layout_marginEnd="@dimen/margin_start"
+                android:layout_marginRight="@dimen/margin_start"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/mon_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/mon_enabled"
-                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/goal"
+                    android:textSize="@dimen/goal_text_size" />
 
-                <ImageView
-                    android:id="@+id/tue_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/tue_enabled"
-                    android:layout_weight="1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_start"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/wed_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/wed_enabled"
-                    android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/mon_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/mon_enabled" />
 
-                <ImageView
-                    android:id="@+id/thu_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/thu_enabled"
-                    android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/tue_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/tue_enabled" />
 
-                <ImageView
-                    android:id="@+id/fri_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/fri_enabled"
-                    android:layout_weight="1" />
+                    <ImageView
+                        android:id="@+id/wed_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/wed_enabled" />
 
-                <ImageView
-                    android:id="@+id/sat_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/sat_enabled"
-                    android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/thu_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/thu_enabled" />
 
-                <ImageView
-                    android:id="@+id/sun_icon"
-                    android:layout_width="@dimen/weekday_icon_size"
-                    android:layout_height="@dimen/weekday_icon_size"
-                    tools:src="@mipmap/sun_enabled"
-                    android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/fri_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/fri_enabled" />
 
+                    <ImageView
+                        android:id="@+id/sat_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/sat_enabled" />
+
+                    <ImageView
+                        android:id="@+id/sun_icon"
+                        android:layout_width="@dimen/weekday_icon_size"
+                        android:layout_height="@dimen/weekday_icon_size"
+                        android:layout_weight="1"
+                        tools:src="@mipmap/sun_enabled" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_start"
+                    android:text="@string/done"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/left"
+                    android:textSize="@dimen/text_size" />
+
+                <Button
+                    android:id="@+id/start_button"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="@dimen/margin_start"
+                    android:layout_marginBottom="@dimen/margin_start"
+                    android:background="@drawable/circle"
+                    android:text="@string/start"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorIcons"
+                    android:textSize="32sp" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/done"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_start"
-                android:text="@string/done"
-                android:textSize="@dimen/text_size"/>
-
-            <TextView
-                android:id="@+id/left"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/left"
-                android:textSize="@dimen/text_size"/>
-
-            <Button
-                android:id="@+id/start_button"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="@dimen/margin_start"
-                android:layout_marginBottom="@dimen/margin_start"
-                android:layout_gravity="center_horizontal|bottom"
-                android:text="@string/start"
-                android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textSize="32sp"
-                android:textColor="@color/colorIcons"
-                android:background="@drawable/circle" />
-
-        </LinearLayout>
-
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -143,10 +148,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@color/colorAccent"
         android:clickable="true"
         android:src="@drawable/ic_edit"
-        android:background="@color/colorAccent"
         app:layout_anchor="@id/viewA"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

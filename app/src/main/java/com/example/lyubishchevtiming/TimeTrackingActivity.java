@@ -11,6 +11,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
@@ -35,6 +36,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
     private long timeAmount;
     private long desiredTimeAmount;
     private long timeWhenStopped = 0;
+    private TextView mTaskName;
 
     private static final String CHRONOMETER_TIME_KEY = "time";
     private static final String CHRONOMETER_RUNNING_KEY = "running";
@@ -46,6 +48,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
 
         mDb = AppDatabase.getInstance(this);
         mChronometer = findViewById(R.id.chronometer);
+        mTaskName = findViewById(R.id.task_name_summary);
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity != null) {
@@ -70,6 +73,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
                 startChronometer();
             }
         }
+
 
         mStartButton = findViewById(R.id.stop_btn);
         mCancelButton = findViewById(R.id.cancel_btn);
@@ -101,6 +105,8 @@ public class TimeTrackingActivity extends AppCompatActivity {
                 mChronometer.start();
             }
         }
+
+        mTaskName.setText(mTask.getName());
 
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override

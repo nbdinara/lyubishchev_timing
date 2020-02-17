@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout android:layout_width="match_parent"
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_marginStart="@dimen/margin_start"
     android:layout_marginLeft="@dimen/margin_start"
@@ -60,8 +66,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/pie_chart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="400dp"
         android:layout_marginTop="@dimen/margin_start"
         android:layout_marginRight="@dimen/margin_start"
         android:layout_marginEnd="@dimen/margin_start"
@@ -72,9 +77,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_download_csv"
         android:layout_width="wrap_content"

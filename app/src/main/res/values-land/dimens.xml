@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!---activity_task.xml-->
+    <dimen name="view_a_height">60dp</dimen>
+
+    <!---activity_time_tracking-->
+    <dimen name="margin_task_name_top">16dp</dimen>
+    <dimen name="margin_chronometer_top">20dp</dimen>
+    <dimen name="margin_start_button_top">20dp</dimen>
+
+
+    <!--activity_time_tracking_summary-->
+    <dimen name="margin_cancel_btn_bottom">20dp</dimen>
+</resources>

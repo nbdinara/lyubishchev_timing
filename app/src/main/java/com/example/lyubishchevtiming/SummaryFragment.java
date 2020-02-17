@@ -83,6 +83,7 @@ public class SummaryFragment extends Fragment {
         loadSummaryData(mTimePeriod.getText().toString());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.tasks_list_recycler_view);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         if (mSummaries!=null) {
@@ -257,6 +258,7 @@ public class SummaryFragment extends Fragment {
                                 public void run() {
                                     mAdapter = new SummaryAdapter(mSummaries, getActivity());
                                     recyclerView.setAdapter(mAdapter);
+                                    recyclerView.setNestedScrollingEnabled(false);
                                     adjustPieChart();
                                     addData();
                                     mDate.setText(startString + " - " + endString);
