@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -201,7 +202,14 @@ public class TimeTrackingActivity extends AppCompatActivity {
         serviceIntent.putExtra("time", timeWhenStopped);
         serviceIntent.putExtra("running", isRunning);
 
-        ContextCompat.startForegroundService(this, serviceIntent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent);
+        } else {
+            startService(serviceIntent);
+        }
+
+        //ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     public void stopService() {

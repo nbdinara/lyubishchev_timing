@@ -2,7 +2,6 @@ package com.example.lyubishchevtiming;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,19 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lyubishchevtiming.database.AppDatabase;
-import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Log;
 import com.example.lyubishchevtiming.model.Summary;
-import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.viewmodel.AllLogsViewModel;
-import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModel;
 import com.example.lyubishchevtiming.viewmodel.SummaryViewModelFactory;
 import com.github.mikephil.charting.charts.PieChart;
@@ -61,8 +56,6 @@ public class SummaryFragment extends Fragment {
 
     private List<Summary> mSummaries;
     private PieChart pieChart;
-  //  private float[] yData = {25f, 27f, 55f};
-  //  private String[] xData = {"Max", "Dinara", "Aman"};
     private TextView mTimePeriod;
     private String[] timePeriods = {"today", "last 7 days", "last 30 days", "last 365 days"};
     private AppDatabase mDb;
@@ -90,18 +83,6 @@ public class SummaryFragment extends Fragment {
             mAdapter = new SummaryAdapter(mSummaries, getActivity());
         }
         recyclerView.setAdapter(mAdapter);
-
-       /* mSummaries = new ArrayList<>();
-
-        mSummaries.add(new Summary(1, "name", 10, 1, "blue"));
-        mSummaries.add(new Summary(2, "name2", 10, 5, "blue"));
-        mSummaries.add(new Summary(3, "name3", 10, 10, "blue"));*/
-
-
-        // specify an adapter (see also next example)
-
-
-
 
         mTimePeriod.setOnClickListener(new View.OnClickListener() {
             @Override
