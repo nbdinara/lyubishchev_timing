@@ -15,6 +15,12 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.viewmodel.MainViewModel;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -31,6 +37,8 @@ public class TaskFragment extends Fragment {
     private FloatingActionButton mDeleteTaskButton;
 
     private GridView gridView;
+    private AdView mAdView;
+
 
     public TaskFragment(){
         // empty constructor
@@ -72,6 +80,18 @@ public class TaskFragment extends Fragment {
                 startActivity(intentToStartTaskActivity);
             }
         });
+
+
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         setupViewModel();
 
