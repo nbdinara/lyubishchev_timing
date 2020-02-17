@@ -293,8 +293,8 @@ public class SummaryFragment extends Fragment {
 
 
     public void addData(){
-        ArrayList<PieEntry> yEntries = new ArrayList<>();
-        ArrayList<String> xEntries = new ArrayList<>();
+        final ArrayList<PieEntry> yEntries = new ArrayList<>();
+        final ArrayList<String> xEntries = new ArrayList<>();
 
 
         long desiredTotalAmountOfTime = 0;
@@ -307,6 +307,7 @@ public class SummaryFragment extends Fragment {
             long time = hours * 60 * 60 + min * 60 + sec;
 
             yEntries.add(new PieEntry(time, mSummaries.get(i).getTaskName()));
+            android.util.Log.d(TAG, "addData: yEntries" + time + mSummaries.get(i).getTaskName());
             desiredTotalAmountOfTime = desiredTotalAmountOfTime + mSummaries.get(i).getDesiredTimeAmount();
             actualTotalAmountOfTime = actualTotalAmountOfTime + mSummaries.get(i).getActualTimeAmount();
         }
@@ -332,6 +333,7 @@ public class SummaryFragment extends Fragment {
         yEntries.add(new PieEntry(difference, getResources().getString(R.string.ineffective_time)));
 
         for (int i = 0; i < mSummaries.size(); i++){
+            android.util.Log.d(TAG, "addData: "  + mSummaries.get(i).getTaskName());
             xEntries.add(mSummaries.get(i).getTaskName());
         }
 
@@ -356,7 +358,24 @@ public class SummaryFragment extends Fragment {
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Toast.makeText(getContext(), h.toString(), Toast.LENGTH_LONG).show();
+
+                android.util.Log.d(TAG, "onValueSelected: " + e.toString());
+                android.util.Log.d(TAG, "onValueSelected: " + h.toString());
+
+                int pos = e.toString().indexOf("y: ");
+                String s = e.toString();
+                String value = e.toString().substring(pos + 3,s.length()-2);
+
+                String taskName ="";
+
+                for (int i = 0; i < yEntries.size(); i++){
+                    if (yEntries.get(i).getValue() == Long.parseLong(value)){
+                        taskName = yEntries.get(i).getLabel();
+                    }
+                }
+
+
+                Toast.makeText(getContext(), taskName, Toast.LENGTH_LONG).show();
 
             }
 
