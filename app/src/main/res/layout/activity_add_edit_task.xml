@@ -198,5 +198,4 @@
         app:srcCompat="@drawable/circle_shape"
         android:src="@drawable/ic_ic_correct"
         android:contentDescription="@string/save"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,6 @@ import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.model.Week;
-import com.example.lyubishchevtiming.viewmodel.MainViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModel;
 import com.example.lyubishchevtiming.viewmodel.TaskWeekViewModelFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,10 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -91,9 +88,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
             isEdit = false;
         }
 
-
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -106,19 +100,41 @@ public class AddEditTaskActivity extends AppCompatActivity {
         minutesNumberPicker.setMaxValue(59);
         minutesNumberPicker.setOnValueChangedListener(onMinutesChangeListener);
 
+
         mSaveButton = findViewById(R.id.save_fab);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO save changes to database
-                if (isEdit){
-                    getUpdatedDataFromFields();
-                    updateTaskInDatabase();
+                if ((!TextUtils.isEmpty(mTaskNameEditText.getText().toString())) &&
+                        (monCheckBox.isChecked() || tueCheckBox.isChecked() || wedCheckBox.isChecked()
+                                || thuCheckBox.isChecked() || friCheckBox.isChecked() || satCheckBox.isChecked()
+                               || sunCheckBox.isChecked()) &&
+                        (hoursNumberPicker.getValue()!=0 || minutesNumberPicker.getValue() !=0)){
+
+                    if (isEdit){
+                        getUpdatedDataFromFields();
+                        updateTaskInDatabase();
+                    } else {
+                        getDataFromFields();
+                        addTaskToDatabase();
+                    }
+                    finish();
+
                 } else {
-                    getDataFromFields();
-                    addTaskToDatabase();
+                    if (TextUtils.isEmpty(mTaskNameEditText.getText().toString())) {
+                        mTaskNameEditText.setError("Enter task name");
+                    }
+                    if (!monCheckBox.isChecked() && !tueCheckBox.isChecked() && !wedCheckBox.isChecked()
+                            && !thuCheckBox.isChecked() && !friCheckBox.isChecked() && !satCheckBox.isChecked()
+                            && !sunCheckBox.isChecked()) {
+                        Toast.makeText(getApplicationContext(), "Select days of activity", Toast.LENGTH_SHORT).show();
+                    }
+                    if (hoursNumberPicker.getValue() == 0 && minutesNumberPicker.getValue() == 0){
+                        Toast.makeText(getApplicationContext(), "Select time of activity", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
-                finish();
+
 
             }
         });
