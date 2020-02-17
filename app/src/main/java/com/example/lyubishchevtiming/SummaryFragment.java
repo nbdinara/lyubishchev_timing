@@ -2,6 +2,7 @@ package com.example.lyubishchevtiming;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -201,7 +202,6 @@ public class SummaryFragment extends Fragment {
 
     public void loadSummaryData(String timePeriod){
 
-
         Calendar calendar = new GregorianCalendar();
         // reset hour, minutes, seconds and millis
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -340,6 +340,11 @@ public class SummaryFragment extends Fragment {
         pieChart.setData(data);
         pieChart.setCenterText(getResources().getString(R.string.chart_name, actualTimeHours,
                 actualTimeMin, desiredTimeHours, desiredTimeMin));
+/*
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                "com.example.app", Context.MODE_PRIVATE);
+        Date dt = getSomeDate();
+        prefs.edit().putLong(dateTimeKey, dt.getTime()).apply();*/
 
         pieChart.setDrawSliceText(false);
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {

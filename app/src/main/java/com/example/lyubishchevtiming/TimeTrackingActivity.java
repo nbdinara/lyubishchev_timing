@@ -17,6 +17,7 @@ import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Log;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.service.TimeTrackingService;
+import com.example.lyubishchevtiming.widget.SummaryWidgetService;
 
 import java.util.Date;
 import static android.content.ContentValues.TAG;
@@ -130,7 +131,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
     }
 
     public void stopChronometer(){
-       // stopService();
+        stopService();
         mChronometer.stop();
         timeAmount = SystemClock.elapsedRealtime() - mChronometer.getBase();
         String mTaskName = mTask.getName();
@@ -170,6 +171,8 @@ public class TimeTrackingActivity extends AppCompatActivity {
         });
         android.util.Log.d(TAG, "saveLogToDb: " + mLog.getId() + " / " + mLog.getTodayDate() +
                 " / " + mLog.getTodayTimeAmount() + " / " + mLog.getDesiredTimeAmount() + " / " + mLog.getTaskId() );
+
+        SummaryWidgetService.startActionUpdateSummaryWidgets(this);
     }
 
     @Override
@@ -203,7 +206,9 @@ public class TimeTrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        startService();
+        if (isRunning) {
+            startService();
+        }
     }
 
     @Override
@@ -211,4 +216,5 @@ public class TimeTrackingActivity extends AppCompatActivity {
         super.onResume();
         stopService();
     }
+
 }

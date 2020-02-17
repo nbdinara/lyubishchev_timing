@@ -9,6 +9,8 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorIcons">#FFFFFF</color>
 
+    <color name="colorPrimaryDarkTransparent">#30212121</color>
+
     <color name="red">#9B1D20</color>
     <color name="glaucous">#6279B8</color>
     <color name="yellow">#FFFC31</color>

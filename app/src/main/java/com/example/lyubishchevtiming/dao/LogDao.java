@@ -38,5 +38,13 @@ public interface LogDao {
     LiveData<List<Summary>> getLogsAndTaskInfoForSpecificDate(Date start_date, Date end_date);
 
 
+    @Query("SELECT  task.id, task.name,  sum(log.today_time_amount) as today_time_amount, (log.desired_time_amount) as desired_time_amount, task.color " +
+            "FROM log LEFT JOIN task " +
+            "ON log.task_id = task.id " +
+            "GROUP BY task.id " +
+            "HAVING (log.today_date BETWEEN :start_date AND :end_date)" )
+    List<Summary> getLogsForService(Date start_date, Date end_date);
+
+
 
     }

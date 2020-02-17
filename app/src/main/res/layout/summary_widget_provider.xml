@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDarkTransparent"
+    android:padding="@dimen/widget_margin"
+    android:layout_margin="@dimen/widget_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/productivity_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/productivity_label"
+        android:text="@string/productivity_label"
+        android:textColor="@color/colorIcons"
+        android:textSize="14sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/actual_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:contentDescription="@string/actual_time"
+        android:text="@string/actual_time"
+        android:textColor="@color/colorIcons"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/desired_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:contentDescription="@string/desired_time"
+        android:text="@string/desired_time"
+        android:textColor="@color/colorIcons"
+        android:textSize="14sp" />
+
+</LinearLayout>

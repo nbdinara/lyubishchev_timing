@@ -25,21 +25,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-
         this.getSupportActionBar().setElevation(0);
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        int defaultValue = 0;
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
+
+        if (getIntent().hasExtra("tab")) {
+            Log.d(TAG, "onCreate: tab" );
+            int page = getIntent().getIntExtra("tab", defaultValue);
+            viewPager.setCurrentItem(1, true);
+        }
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         isLocationServiceRunning(getApplicationContext());
 
-        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        activityManager.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_NO_USER_ACTION);
+
 
     }
 
