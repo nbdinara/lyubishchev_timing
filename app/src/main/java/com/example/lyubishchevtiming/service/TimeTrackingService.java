@@ -19,13 +19,33 @@ import static com.example.lyubishchevtiming.service.App.CHANNEL_ID;
 
 public class TimeTrackingService extends Service {
 
+    private Intent intent;
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(Intent intent2, int flags, int startId) {
+        this.intent = intent2;
+        PendingIntent pendingIntent = startTimer();
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Lyubishchev Timing")
+                .setContentText("Stopwatch is running...")
+                .setSmallIcon(R.drawable.ic_edit)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        startForeground(1, notification);
+
+        //do heavy work on a background thread
+        //stopSelf();
+
+        return START_NOT_STICKY;
+    }
+
+    public PendingIntent startTimer(){
         Task task = intent.getExtras().getParcelable("taskExtra");
         Log.d(TAG, "onStartCommand: " + task.getName());
         long desiredTimeAmount = intent.getLongExtra("desiredTime", 0);
@@ -42,20 +62,7 @@ public class TimeTrackingService extends Service {
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Lyubishchev Timing")
-                .setContentText("Stopwatch is running...")
-                .setSmallIcon(R.drawable.ic_edit)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        startForeground(1, notification);
-
-        //do heavy work on a background thread
-        //stopSelf();
-
-        return START_NOT_STICKY;
+        return pendingIntent;
     }
 
     @Override

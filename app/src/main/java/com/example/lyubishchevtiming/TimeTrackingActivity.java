@@ -127,11 +127,10 @@ public class TimeTrackingActivity extends AppCompatActivity {
         mChronometer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         mChronometer.start();
         isRunning = true;
-        startService();
     }
 
     public void stopChronometer(){
-        stopService();
+       // stopService();
         mChronometer.stop();
         timeAmount = SystemClock.elapsedRealtime() - mChronometer.getBase();
         String mTaskName = mTask.getName();
@@ -201,5 +200,15 @@ public class TimeTrackingActivity extends AppCompatActivity {
         stopService(serviceIntent);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        startService();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stopService();
+    }
 }

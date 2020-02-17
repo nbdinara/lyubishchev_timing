@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lyubishchevtiming">
 
+
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application
         android:allowBackup="true"
         android:name=".service.App"
