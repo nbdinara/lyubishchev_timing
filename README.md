@@ -14,10 +14,12 @@ Lyubishchev Timing is a _simple time-management application_. As a foundation it
 
 ### User Interface Mocks
 
-<img src="app/src/main/res/images/Main.png" width="160"> <img src="app/src/main/res/images/Add%20activity.png" width="160"> <img src="app/src/main/res/images/Activity.png" width="160">
-<img src="app/src/main/res/images/Secundomer.png" width="160"> <img src="app/src/main/res/images/Good%20job.png" width="160">
-<img src="app/src/main/res/images/Summary.png" width="160"> <img src="app/src/main/res/images/Oeriod.png" width="160"> <img src="app/src/main/res/images/Save.png" width="160">
-<img src="app/src/main/res/images/Widget.png" width="160">
+![Main](https://user-images.githubusercontent.com/35890180/74773588-fe8c0900-5246-11ea-8037-e7dbb3a6fd8a.png)
+ ![Add activity](https://user-images.githubusercontent.com/35890180/74773613-0ba8f800-5247-11ea-8b53-85bf552081b2.png) ![Activity](https://user-images.githubusercontent.com/35890180/74773512-dc928680-5246-11ea-89e1-300e49f52c79.png)
+![Secundomer](https://user-images.githubusercontent.com/35890180/74773638-19f71400-5247-11ea-9f08-176322902c36.png) ![Good job](https://user-images.githubusercontent.com/35890180/74773670-28ddc680-5247-11ea-8db6-906a4043944f.png)
+![Summary](https://user-images.githubusercontent.com/35890180/74773695-34c98880-5247-11ea-9d41-81ce77a36c75.png)
+ ![Oeriod](https://user-images.githubusercontent.com/35890180/74773713-4317a480-5247-11ea-9681-b0e80c7c687d.png) ![Save](https://user-images.githubusercontent.com/35890180/74773738-5165c080-5247-11ea-87ed-3adb668799a6.png)
+![Widget](https://user-images.githubusercontent.com/35890180/74773770-65112700-5247-11ea-9874-9405812f40f1.png)
 
 ## Contributions
 
