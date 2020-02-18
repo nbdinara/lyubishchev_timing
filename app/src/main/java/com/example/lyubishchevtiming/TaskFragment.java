@@ -22,6 +22,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class TaskFragment extends Fragment {
     private AdView mAdView;
 
 
+
     public TaskFragment(){
         // empty constructor
     }
@@ -49,6 +51,7 @@ public class TaskFragment extends Fragment {
         View rootView =  inflater.from(getContext()).inflate(R.layout.fragment_task, container, false);
 
         gridView = (GridView)rootView.findViewById(R.id.grid_view_tasks);
+
         setupViewModel();
 
         if (tasks!=null) {

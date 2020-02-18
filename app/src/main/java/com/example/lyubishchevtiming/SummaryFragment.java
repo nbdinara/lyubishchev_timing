@@ -34,6 +34,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -62,11 +63,15 @@ public class SummaryFragment extends Fragment {
     private TextView mDate;
     private FloatingActionButton mDownloadLogsButton;
     private List<Log> allLogs;
+    FirebaseAnalytics mFirebaseAnalytics;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_summary, container, false);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
 
         mDb = AppDatabase.getInstance(getActivity());
         mDownloadLogsButton = rootView.findViewById(R.id.fab_download_csv);
@@ -280,6 +285,10 @@ public class SummaryFragment extends Fragment {
 
         long desiredTotalAmountOfTime = 0;
         long actualTotalAmountOfTime = 0;
+        int totalDesiredHours = 0;
+        int totalDesiredMin = 0;
+        int totalDesiredSec = 0;
+
         for (int i = 0; i < mSummaries.size(); i++){
             String timeAmount = convertTimeAmountToString(mSummaries.get(i).getActualTimeAmount());
             int hours = Integer.parseInt(timeAmount.substring(0, 2));
@@ -289,25 +298,48 @@ public class SummaryFragment extends Fragment {
 
             yEntries.add(new PieEntry(time, mSummaries.get(i).getTaskName()));
             android.util.Log.d(TAG, "addData: yEntries" + time + mSummaries.get(i).getTaskName());
-            desiredTotalAmountOfTime = desiredTotalAmountOfTime + mSummaries.get(i).getDesiredTimeAmount();
+
             actualTotalAmountOfTime = actualTotalAmountOfTime + mSummaries.get(i).getActualTimeAmount();
+
+            desiredTotalAmountOfTime = mSummaries.get(i).getDesiredTimeAmount();
+            String desiredTime = "00:00:00";
+            if (desiredTotalAmountOfTime!=0){
+                desiredTime = convertTimeAmountToStringWithoutUTF(desiredTotalAmountOfTime);
+                android.util.Log.d(TAG, "addData: desiredTotalAmountOfTime " + desiredTime);
+
+            }
+            int desiredTimeHours = Integer.parseInt(desiredTime.substring(0, 2));
+            int desiredTimeMin = Integer.parseInt(desiredTime.substring(3, 5));
+            int desiredTimeSec = Integer.parseInt(desiredTime.substring(6, 8));
+
+            totalDesiredHours = totalDesiredHours + desiredTimeHours;
+            totalDesiredMin = totalDesiredMin + desiredTimeMin;
+            totalDesiredSec = totalDesiredSec + desiredTimeSec;
+
+            android.util.Log.d(TAG, "addData: hmmmm " + convertTimeAmountToStringWithoutUTF(mSummaries.get(i).getDesiredTimeAmount()));
+            android.util.Log.d(TAG, "addData: desired" + convertTimeAmountToStringWithoutUTF(desiredTotalAmountOfTime));
         }
 
         pieChart.setEntryLabelColor(R.color.colorIcons);
 
-        String actualTime = convertTimeAmountToString(actualTotalAmountOfTime);
-        String desiredTime = convertTimeAmountToStringWithoutUTF(desiredTotalAmountOfTime);
+        String actualTime = "00:00:00";
+        if (actualTotalAmountOfTime!=0){
+            actualTime = convertTimeAmountToString(actualTotalAmountOfTime);
+        }
+
+
+        android.util.Log.d(TAG, "addData: desiredTotalAmountOfTime " + desiredTotalAmountOfTime);
 
         int actualTimeHours = Integer.parseInt(actualTime.substring(0, 2));
         int actualTimeMin = Integer.parseInt(actualTime.substring(3, 5));
         int actualTimeSec = Integer.parseInt(actualTime.substring(6, 8));
 
-        int desiredTimeHours = Integer.parseInt(desiredTime.substring(0, 2));
-        int desiredTimeMin = Integer.parseInt(desiredTime.substring(3, 5));
-        int desiredTimeSec = Integer.parseInt(desiredTime.substring(6, 8));
+
+
+        android.util.Log.d(TAG, "addData: desiredTotalAmountOfTime " + totalDesiredHours +" miiiin " +  totalDesiredMin);
 
         long actual = actualTimeHours * 60 * 60 + actualTimeMin * 60 + actualTimeSec;
-        long desired = desiredTimeHours * 60 * 60 + desiredTimeMin * 60 + desiredTimeSec;
+        long desired = totalDesiredHours * 60 * 60 + totalDesiredMin * 60 + totalDesiredSec;
 
         long difference = desired - actual;
 
@@ -325,7 +357,7 @@ public class SummaryFragment extends Fragment {
         pieChart.setData(data);
         if(mSummaries.size()!=0) {
             pieChart.setCenterText(getResources().getString(R.string.chart_name, actualTimeHours,
-                    actualTimeMin, desiredTimeHours, desiredTimeMin));
+                    actualTimeMin, totalDesiredHours, totalDesiredMin));
         } else {
             pieChart.setCenterText("Nothing done today");
         }
@@ -355,6 +387,11 @@ public class SummaryFragment extends Fragment {
                     }
                 }
                 Toast.makeText(getContext(), taskName, Toast.LENGTH_LONG).show();
+
+                Bundle params = new Bundle();
+                params.putString("task_name", taskName);
+                mFirebaseAnalytics.logEvent("task", params);
+
             }
             @Override
             public void onNothingSelected() {
@@ -381,5 +418,7 @@ public class SummaryFragment extends Fragment {
         String dateFormatted = formatter.format(date);
         return dateFormatted;
     }
+
+
 
 }

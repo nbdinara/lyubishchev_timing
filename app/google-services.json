@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1044634033218",
+    "firebase_url": "https://lyubishchev-timing.firebaseio.com",
+    "project_id": "lyubishchev-timing",
+    "storage_bucket": "lyubishchev-timing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044634033218:android:ef53235c8a849316a221db",
+        "android_client_info": {
+          "package_name": "com.example.lyubishchevtiming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044634033218-ki77oh3k02c8erevq9n7de49s3gad4oo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPSOO1Ndj31u5Tq6nAZQs72u9Rq3ImQzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044634033218-ki77oh3k02c8erevq9n7de49s3gad4oo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
