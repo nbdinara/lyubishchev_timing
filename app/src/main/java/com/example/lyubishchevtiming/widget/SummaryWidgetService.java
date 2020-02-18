@@ -80,24 +80,37 @@ public class SummaryWidgetService extends IntentService {
 
                 long desiredTotalAmountOfTime = 0;
                 long actualTotalAmountOfTime = 0;
+                int totalDesiredHours = 0;
+                int totalDesiredMin = 0;
+                int totalDesiredSec = 0;
                 for (int i = 0; i < summaries.size(); i++) {
-                    desiredTotalAmountOfTime = desiredTotalAmountOfTime + summaries.get(i).getDesiredTimeAmount();
                     actualTotalAmountOfTime = actualTotalAmountOfTime + summaries.get(i).getActualTimeAmount();
+                    desiredTotalAmountOfTime = summaries.get(i).getDesiredTimeAmount();
+                    String desiredTime = "00:00:00";
+                    if (desiredTotalAmountOfTime!=0){
+                        desiredTime = convertTimeAmountToStringWithoutUTF(desiredTotalAmountOfTime);
+                        android.util.Log.d(TAG, "addData: desiredTotalAmountOfTime " + desiredTime);
+
+                    }
+                    int desiredTimeHours = Integer.parseInt(desiredTime.substring(0, 2));
+                    int desiredTimeMin = Integer.parseInt(desiredTime.substring(3, 5));
+                    int desiredTimeSec = Integer.parseInt(desiredTime.substring(6, 8));
+
+                    totalDesiredHours = totalDesiredHours + desiredTimeHours;
+                    totalDesiredMin = totalDesiredMin + desiredTimeMin;
+                    totalDesiredSec = totalDesiredSec + desiredTimeSec;
                 }
                 String actualTime = convertTimeAmountToString(actualTotalAmountOfTime);
-                String desiredTime = convertTimeAmountToStringWithoutUTF(desiredTotalAmountOfTime);
 
                 int actualTimeHours = Integer.parseInt(actualTime.substring(0, 2));
                 int actualTimeMin = Integer.parseInt(actualTime.substring(3, 5));
 
-                int desiredTimeHours = Integer.parseInt(desiredTime.substring(0, 2));
-                int desiredTimeMin = Integer.parseInt(desiredTime.substring(3, 5));
 
                 String actual = "";
                 String desired = "";
                 if (summaries.size()!=0) {
                     actual = getResources().getString(R.string.actual_time, actualTimeHours, actualTimeMin);
-                    desired = getResources().getString(R.string.desired_time, desiredTimeHours, desiredTimeMin);
+                    desired = getResources().getString(R.string.desired_time, totalDesiredHours, totalDesiredMin);
                     Log.d(TAG, "run: actual and desired " + actual + desired);
                 } else {
                     actual = "Start activity now!";

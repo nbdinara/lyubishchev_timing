@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 
 import android.content.Intent;
+import android.graphics.ImageDecoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -20,6 +21,7 @@ import com.example.lyubishchevtiming.model.Log;
 import com.example.lyubishchevtiming.model.Task;
 import com.example.lyubishchevtiming.service.TimeTrackingService;
 import com.example.lyubishchevtiming.widget.SummaryWidgetService;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Date;
 import static android.content.ContentValues.TAG;
@@ -38,6 +40,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
     private long desiredTimeAmount;
     private long timeWhenStopped = 0;
     private TextView mTaskName;
+
 
     private static final String CHRONOMETER_TIME_KEY = "time";
     private static final String CHRONOMETER_RUNNING_KEY = "running";
@@ -106,6 +109,7 @@ public class TimeTrackingActivity extends AppCompatActivity {
                 mChronometer.start();
             }
         }
+
 
         mTaskName.setText(mTask.getName());
 

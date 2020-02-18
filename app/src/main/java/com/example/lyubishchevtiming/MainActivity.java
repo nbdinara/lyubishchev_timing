@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.GridView;
 
 import com.example.lyubishchevtiming.service.TimeTrackingService;
+import com.example.lyubishchevtiming.widget.SummaryWidgetService;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
         this.getSupportActionBar().setElevation(0);
@@ -75,4 +77,10 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SummaryWidgetService.startActionUpdateSummaryWidgets(this);
+
+    }
 }
