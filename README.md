@@ -14,15 +14,9 @@ Lyubishchev Timing is a _simple time-management application_. As a foundation it
 
 ### User Interface Mocks
 
-<img src="app/src/main/res/images/Main.png" width="140">
-<img src="app/src/main/res/images/Add%20activity.png" width="140">
-<img src="app/src/main/res/images/Activity.png" width="140">
-<img src="app/src/main/res/images/Secundomer.png" width="140">
-<img src="app/src/main/res/images/Good%20job.png" width="140">
-<img src="app/src/main/res/images/Summary.png" width="140">
-<img src="app/src/main/res/images/Oeriod.png" width="140">
-<img src="app/src/main/res/images/Save.png" width="140">
-<img src="app/src/main/res/images/Widget.png" width="140">
+<img src="app/src/main/res/images/Main.png" width="160"><img src="app/src/main/res/images/Add%20activity.png" width="160"><img src="app/src/main/res/images/Activity.png" width="160">
+<img src="app/src/main/res/images/Secundomer.png" width="160"><img src="app/src/main/res/images/Good%20job.png" width="160"><img src="app/src/main/res/images/Summary.png" width="160"><img src="app/src/main/res/images/Oeriod.png" width="160"><img src="app/src/main/res/images/Save.png" width="160">
+<img src="app/src/main/res/images/Widget.png" width="160">
 
 ## Contributions
 
