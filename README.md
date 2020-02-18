@@ -4,18 +4,19 @@ Lyubishchev Timing is a _simple time-management application_. As a foundation it
 
 ### Features 
 
-● Adding activities which user wants to track
-● Customizing activities by setting up the bar for specific day
-● Start and stop tracking a task by one click
-● Analyzing user’s daily/weekly/monthly activity
-● Creating pie diagram using analysis of users activity
-● Exporting data via email
-● Downloading data to the user’s phone
+* Adding activities which user wants to track
+* Customizing activities by setting up the bar for specific day
+* Start and stop tracking a task by one click
+* Analyzing user’s daily/weekly/monthly activity
+* Creating pie diagram using analysis of users activity
+* Exporting data via email
+* Downloading data to the user’s phone
 
 ### User Interface Mocks
 
-<img src="app/src/main/res/images/Main.png" width="160"><img src="app/src/main/res/images/Add%20activity.png" width="160"><img src="app/src/main/res/images/Activity.png" width="160">
-<img src="app/src/main/res/images/Secundomer.png" width="160"><img src="app/src/main/res/images/Good%20job.png" width="160"><img src="app/src/main/res/images/Summary.png" width="160"><img src="app/src/main/res/images/Oeriod.png" width="160"><img src="app/src/main/res/images/Save.png" width="160">
+<img src="app/src/main/res/images/Main.png" width="160"> <img src="app/src/main/res/images/Add%20activity.png" width="160"> <img src="app/src/main/res/images/Activity.png" width="160">
+<img src="app/src/main/res/images/Secundomer.png" width="160"> <img src="app/src/main/res/images/Good%20job.png" width="160">
+<img src="app/src/main/res/images/Summary.png" width="160"> <img src="app/src/main/res/images/Oeriod.png" width="160"> <img src="app/src/main/res/images/Save.png" width="160">
 <img src="app/src/main/res/images/Widget.png" width="160">
 
 ## Contributions
