@@ -56,7 +56,7 @@ public class TimeTrackingService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Lyubishchev Timing")
                 .setContentText("Stopwatch is running...")
-                .setSmallIcon(R.drawable.ic_edit)
+                .setSmallIcon(R.drawable.ic_lyubishchev_r)
                 .setContentIntent(pendingIntent)
                 .build();
 

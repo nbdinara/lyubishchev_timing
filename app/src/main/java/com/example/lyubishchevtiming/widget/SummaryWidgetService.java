@@ -5,23 +5,15 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.lyubishchevtiming.R;
 import com.example.lyubishchevtiming.database.AppDatabase;
 import com.example.lyubishchevtiming.database.AppExecutors;
 import com.example.lyubishchevtiming.model.Summary;
-import com.example.lyubishchevtiming.viewmodel.SummaryViewModel;
-import com.example.lyubishchevtiming.viewmodel.SummaryViewModelFactory;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -56,11 +48,8 @@ public class SummaryWidgetService extends IntentService {
     }
 
     private void handleActionUpdatePlantWidgets() {
-
         Log.d(TAG, "run: actual and desired start" );
-
         mDb = AppDatabase.getInstance(getApplicationContext());
-
         Calendar calendar = new GregorianCalendar();
         // reset hour, minutes, seconds and millis
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -123,9 +112,7 @@ public class SummaryWidgetService extends IntentService {
                 SummaryWidgetProvider.updateSummaryWidgets(getApplicationContext(), appWidgetManager, actual, desired, appWidgetIds);
             }
         });
-
     }
-
 
     public String convertTimeAmountToStringWithoutUTF(long timeAmount) {
         Date date = new Date(timeAmount);
