@@ -1,5 +1,6 @@
 package com.example.lyubishchevtiming;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -55,6 +56,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private CheckBox satCheckBox;
     private CheckBox sunCheckBox;
     private Week weekLoaded;
+    private static final String HOURS_NUMBER_PICKER_KEY = "hourskey";
+    private static final String MINUTES_NUMBER_PICKER_KEY = "minuteskey";
 
 
 
@@ -90,6 +93,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
 
 
         hoursNumberPicker.setMinValue(0);
@@ -138,6 +142,13 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
             }
         });
+
+        if (savedInstanceState!= null) {
+            int hour = savedInstanceState.getInt(HOURS_NUMBER_PICKER_KEY);
+            hoursNumberPicker.setValue(hour);
+            int min  = savedInstanceState.getInt(MINUTES_NUMBER_PICKER_KEY);
+            minutesNumberPicker.setValue(min);
+        }
     }
 
 
@@ -397,6 +408,13 @@ public class AddEditTaskActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(HOURS_NUMBER_PICKER_KEY, hoursNumberPicker.getValue() );
+        outState.putInt(MINUTES_NUMBER_PICKER_KEY, minutesNumberPicker.getValue());
     }
 
     @Override
